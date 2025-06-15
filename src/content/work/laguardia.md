@@ -1,7 +1,7 @@
 ---
-company: "Google"
-role: "Staff Software Engineer"
-dateStart: "11/27/2022"
+company: "LaGuardia Community College"
+role: "Computer Science Student"
+dateStart: "03/01/2024"
 dateEnd: "Now"
 ---
 
