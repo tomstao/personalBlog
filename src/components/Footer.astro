@@ -3,32 +3,6 @@ import { SITE, SOCIALS } from "@consts"
 import Container from "@components/Container.astro"
 ---
 
-<!-- Floating Back to Top Button -->
-<button
-  id="back-to-top"
-  aria-label="Back to top of page"
-  class="group pointer-events-none fixed bottom-6 left-1/2 z-50 flex -translate-x-1/2 translate-y-4 items-center gap-2 rounded-full border border-black/15 bg-white/80 px-4 py-2 text-sm font-medium opacity-0 shadow-lg backdrop-blur-sm transition-all duration-300 ease-in-out hover:bg-black/5 dark:border-white/20 dark:bg-black/80 hover:dark:bg-white/10"
->
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke-width="2.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    class="stroke-current group-hover:stroke-black group-hover:dark:stroke-white"
-  >
-    <polyline points="18 15 12 9 6 15"></polyline>
-  </svg>
-  <span
-    class="transition-colors duration-300 ease-in-out group-hover:text-black group-hover:dark:text-white"
-  >
-    Back to top
-  </span>
-</button>
-
 <footer class="relative bg-white dark:bg-black">
   <div class="animate">
     <section
@@ -106,36 +80,3 @@ import Container from "@components/Container.astro"
     </section>
   </div>
 </footer>
-
-<script is:inline>
-  function goBackToTop(event) {
-    event.preventDefault()
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
-  }
-
-  function handleScroll() {
-    const backToTop = document.getElementById("back-to-top")
-    if (!backToTop) return
-
-    if (window.scrollY > 300) {
-      backToTop.classList.remove("opacity-0", "pointer-events-none", "translate-y-4")
-      backToTop.classList.add("opacity-100", "pointer-events-auto", "translate-y-0")
-    } else {
-      backToTop.classList.add("opacity-0", "pointer-events-none", "translate-y-4")
-      backToTop.classList.remove("opacity-100", "pointer-events-auto", "translate-y-0")
-    }
-  }
-
-  function initializeBackToTop() {
-    const backToTop = document.getElementById("back-to-top")
-    backToTop?.addEventListener("click", goBackToTop)
-    window.addEventListener("scroll", handleScroll)
-    handleScroll()
-  }
-
-  document.addEventListener("astro:after-swap", initializeBackToTop)
-  initializeBackToTop()
-</script>

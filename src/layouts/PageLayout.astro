@@ -4,6 +4,7 @@ import BaseHead from "@components/BaseHead.astro"
 import Header from "@components/Header.astro"
 import Footer from "@components/Footer.astro"
 import Drawer from "@components/Drawer.astro"
+import BackToTop from "@components/BackToTop.astro"
 import ReadingProgress from "@components/ReadingProgress.astro"
 import SearchModal from "@components/SearchModal"
 import { SITE } from "@consts"
@@ -40,6 +41,7 @@ const searchData = [...posts, ...projects] as CollectionEntry<"blog">[]
       <slot />
     </main>
     <Footer />
+    <BackToTop />
     <SearchModal client:only="solid-js" data={searchData} />
   </body>
 </html>
