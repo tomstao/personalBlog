@@ -80,13 +80,7 @@ const icon = getTagIcon(tag)
         </span>
       </a>
       <div class="flex items-center gap-3">
-        {
-          icon && (
-            <svg class="size-8 shrink-0">
-              <use href={`/stack.svg#${icon}`} />
-            </svg>
-          )
-        }
+        <img src={icon} alt={tag} class="size-8 shrink-0" />
         <h1 class="page-heading capitalize">{tag}</h1>
       </div>
       <p class="mt-1 opacity-75">
