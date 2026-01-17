@@ -30,7 +30,7 @@ export default function SearchWrapper({ data }: Props) {
   return (
     <Show when={shouldLoad()}>
       <Suspense>
-        <SearchModal data={data} />
+        <SearchModal data={data} initialOpen={true} />
       </Suspense>
     </Show>
   )

@@ -5,6 +5,7 @@ import type { SearchableEntry } from "@/types"
 
 type Props = {
   data: SearchableEntry[]
+  initialOpen?: boolean
 }
 
 type SearchResult = FuseResult<SearchableEntry>
@@ -45,8 +46,8 @@ function highlightMatches(
   return <>{parts}</>
 }
 
-export default function SearchModal({ data }: Props) {
-  const [isOpen, setIsOpen] = createSignal(false)
+export default function SearchModal({ data, initialOpen = false }: Props) {
+  const [isOpen, setIsOpen] = createSignal(initialOpen)
   const [query, setQuery] = createSignal("")
   const [selectedIndex, setSelectedIndex] = createSignal(0)
   let inputRef: HTMLInputElement | undefined
