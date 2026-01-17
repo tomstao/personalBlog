@@ -1,9 +1,48 @@
 import { createEffect, createMemo, createSignal, For, onCleanup, onMount, Show } from "solid-js"
-import Fuse from "fuse.js"
+import type { JSX } from "solid-js"
+import Fuse, { type FuseResult, type FuseResultMatch } from "fuse.js"
 import type { SearchableEntry } from "@/types"
 
 type Props = {
   data: SearchableEntry[]
+}
+
+type SearchResult = FuseResult<SearchableEntry>
+
+// Highlight matched text in search results
+function highlightMatches(
+  text: string,
+  matches: readonly FuseResultMatch[] | undefined,
+  key: string
+): JSX.Element {
+  if (!matches) return <>{text}</>
+
+  const match = matches.find((m) => m.key === key)
+  if (!match || !match.indices.length) return <>{text}</>
+
+  const parts: JSX.Element[] = []
+  let lastIndex = 0
+
+  // Sort indices and merge overlapping
+  const sortedIndices = [...match.indices].sort((a, b) => a[0] - b[0])
+
+  for (const [start, end] of sortedIndices) {
+    if (start > lastIndex) {
+      parts.push(<>{text.slice(lastIndex, start)}</>)
+    }
+    parts.push(
+      <mark class="rounded bg-yellow-200/70 px-0.5 text-black dark:bg-yellow-500/40 dark:text-white">
+        {text.slice(start, end + 1)}
+      </mark>
+    )
+    lastIndex = end + 1
+  }
+
+  if (lastIndex < text.length) {
+    parts.push(<>{text.slice(lastIndex)}</>)
+  }
+
+  return <>{parts}</>
 }
 
 export default function SearchModal({ data }: Props) {
@@ -19,15 +58,18 @@ export default function SearchModal({ data }: Props) {
     threshold: 0.4,
   })
 
-  const results = createMemo(() => {
+  // Store full fuse results to access match info
+  const fuseResults = createMemo(() => {
     if (query().length < 2) return []
-    return fuse.search(query()).map((result) => result.item)
+    return fuse.search(query())
   })
 
+  const results = createMemo(() => fuseResults().map((result) => result.item))
+
   const groupedResults = createMemo(() => {
-    const groups: Record<string, SearchableEntry[]> = {}
-    for (const result of results()) {
-      const category = result.collection === "blog" ? "Posts" : "Projects"
+    const groups: Record<string, SearchResult[]> = {}
+    for (const result of fuseResults()) {
+      const category = result.item.collection === "blog" ? "Posts" : "Projects"
       if (!groups[category]) {
         groups[category] = []
       }
@@ -198,7 +240,8 @@ export default function SearchModal({ data }: Props) {
                             {category}
                           </div>
                           <For each={items}>
-                            {(result, localIndex) => {
+                            {(fuseResult, localIndex) => {
+                              const result = fuseResult.item
                               const globalIndex = () => globalIndexOffset + localIndex()
                               const isSelected = () => globalIndex() === selectedIndex()
 
@@ -221,10 +264,18 @@ export default function SearchModal({ data }: Props) {
                                   </span>
                                   <div class="min-w-0 flex-1">
                                     <div class="truncate font-medium text-black dark:text-white">
-                                      {result.data.title}
+                                      {highlightMatches(
+                                        result.data.title,
+                                        fuseResult.matches,
+                                        "data.title"
+                                      )}
                                     </div>
                                     <div class="truncate text-sm text-black/50 dark:text-white/50">
-                                      {result.data.summary}
+                                      {highlightMatches(
+                                        result.data.summary,
+                                        fuseResult.matches,
+                                        "data.summary"
+                                      )}
                                     </div>
                                   </div>
                                   <Show when={isSelected()}>

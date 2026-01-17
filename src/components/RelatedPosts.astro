@@ -13,21 +13,34 @@ const { collection, slug, data } = entry
 const currentTags = data.tags
 
 // Get all posts from the same collection
-const allPosts = (await getCollection(collection))
-  .filter((post) => !post.data.draft && post.slug !== slug)
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+const allPosts = (await getCollection(collection)).filter(
+  (post) => !post.data.draft && post.slug !== slug
+)
 
-// Score posts by number of matching tags
+// Calculate date freshness score (0-1, where 1 is most recent)
+const oldestDate = Math.min(...allPosts.map((p) => p.data.date.getTime()))
+const newestDate = Math.max(...allPosts.map((p) => p.data.date.getTime()))
+const dateRange = newestDate - oldestDate || 1 // Avoid division by zero
+
+function getDateScore(date: Date): number {
+  return (date.getTime() - oldestDate) / dateRange
+}
+
+// Score posts by matching tags + date freshness
+// Tag matches are weighted more heavily (each tag = 1 point)
+// Date freshness adds up to 0.5 bonus points
 const scoredPosts = allPosts.map((post) => {
   const matchingTags = post.data.tags.filter((tag: string) =>
     currentTags.some((currentTag: string) => currentTag.toLowerCase() === tag.toLowerCase())
   )
-  return { post, score: matchingTags.length }
+  const tagScore = matchingTags.length
+  const dateBonus = getDateScore(post.data.date) * 0.5
+  return { post, score: tagScore + dateBonus, tagScore }
 })
 
 // Filter posts with at least one matching tag and sort by score
 const relatedPosts = scoredPosts
-  .filter((item) => item.score > 0)
+  .filter((item) => item.tagScore > 0)
   .sort((a, b) => b.score - a.score)
   .slice(0, maxPosts)
   .map((item) => item.post)
