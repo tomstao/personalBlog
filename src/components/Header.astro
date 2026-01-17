@@ -160,12 +160,43 @@ import Container from "@components/Container.astro"
     window.dispatchEvent(new CustomEvent("open-search-modal"))
   }
 
+  function updateActiveNav() {
+    const pathname = window.location.pathname
+    const subpath = pathname.match(/[^/]+/g)
+    const navLinks = document.querySelectorAll("#header nav a")
+
+    navLinks.forEach((link) => {
+      const href = link.getAttribute("href")
+      const isActive = pathname === href || "/" + (subpath?.[0] || "") === href
+
+      if (isActive) {
+        link.classList.remove(
+          "hover:bg-black/5",
+          "hover:text-black",
+          "dark:hover:bg-white/20",
+          "dark:hover:text-white"
+        )
+        link.classList.add("bg-black", "text-white", "dark:bg-white", "dark:text-black")
+      } else {
+        link.classList.remove("bg-black", "text-white", "dark:bg-white", "dark:text-black")
+        link.classList.add(
+          "hover:bg-black/5",
+          "hover:text-black",
+          "dark:hover:bg-white/20",
+          "dark:hover:text-white"
+        )
+      }
+    })
+  }
+
   function initializeHeader() {
     const drawerButton = document.getElementById("header-drawer-button")
     drawerButton?.addEventListener("click", toggleDrawer)
 
     const searchButton = document.getElementById("search-button")
     searchButton?.addEventListener("click", openSearchModal)
+
+    updateActiveNav()
   }
 
   document.addEventListener("astro:after-swap", initializeHeader)

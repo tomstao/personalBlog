@@ -75,6 +75,35 @@ const subpath = pathname.match(/[^/]+/g)
 </style>
 
 <script is:inline>
+  function updateDrawerActiveNav() {
+    const pathname = window.location.pathname
+    const subpath = pathname.match(/[^/]+/g)
+    const navLinks = document.querySelectorAll("#drawer nav a")
+
+    navLinks.forEach((link) => {
+      const href = link.getAttribute("href")
+      const isActive = pathname === href || "/" + (subpath?.[0] || "") === href
+
+      if (isActive) {
+        link.classList.add(
+          "pointer-events-none",
+          "bg-black",
+          "text-white",
+          "dark:bg-white",
+          "dark:text-black"
+        )
+      } else {
+        link.classList.remove(
+          "pointer-events-none",
+          "bg-black",
+          "text-white",
+          "dark:bg-white",
+          "dark:text-black"
+        )
+      }
+    })
+  }
+
   function initDrawerSearch() {
     const searchButton = document.getElementById("drawer-search-button")
     searchButton?.addEventListener("click", () => {
@@ -86,6 +115,8 @@ const subpath = pathname.match(/[^/]+/g)
       // Open search modal
       window.dispatchEvent(new CustomEvent("open-search-modal"))
     })
+
+    updateDrawerActiveNav()
   }
 
   document.addEventListener("astro:after-swap", initDrawerSearch)

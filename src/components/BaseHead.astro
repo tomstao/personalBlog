@@ -1,5 +1,6 @@
 ---
 import { SITE } from "@consts"
+import { ClientRouter } from "astro:transitions"
 
 interface Props {
   title: string
@@ -122,7 +123,7 @@ const jsonLd = article
   }
 </script>
 
-<!-- <ViewTransitions  /> -->
+<ClientRouter />
 
 <script>
   import type { TransitionBeforeSwapEvent } from "astro:transitions/client"

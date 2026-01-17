@@ -35,13 +35,13 @@ const searchData = [...posts, ...projects]
   </head>
   <body>
     {article && <ReadingProgress />}
-    <Header />
-    <Drawer />
+    <Header transition:persist />
+    <Drawer transition:persist />
     <main>
       <slot />
     </main>
-    <Footer />
-    <BackToTop />
-    <SearchWrapper client:idle data={searchData} />
+    <Footer transition:persist />
+    <BackToTop transition:persist />
+    <SearchWrapper client:idle data={searchData} transition:persist />
   </body>
 </html>
