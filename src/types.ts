@@ -1,3 +1,5 @@
+import type { CollectionEntry } from "astro:content"
+
 export type Page = {
   TITLE: string
   DESCRIPTION: string
@@ -18,3 +20,6 @@ export type Socials = {
   TEXT: string
   HREF: string
 }[]
+
+// Searchable content types (blog and projects share common fields)
+export type SearchableEntry = CollectionEntry<"blog"> | CollectionEntry<"projects">

@@ -19,6 +19,7 @@ const subpath = pathname.match(/[^/]+/g)
             "text-current hover:text-black dark:hover:text-white",
             "hover:bg-black/5 dark:hover:bg-white/20",
             "transition-colors duration-300 ease-in-out",
+            "outline-none focus-visible:ring-2 focus-visible:ring-black/50 dark:focus-visible:ring-white/50",
             pathname === LINK.HREF || "/" + subpath?.[0] === LINK.HREF
               ? "pointer-events-none bg-black text-white dark:bg-white dark:text-black"
               : ""
@@ -34,7 +35,7 @@ const subpath = pathname.match(/[^/]+/g)
     <button
       id="drawer-search-button"
       aria-label={`Search blog posts and projects on ${SITE.TITLE}`}
-      class="size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white"
+      class="size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 outline-none transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black focus-visible:ring-2 focus-visible:ring-black/50 dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white dark:focus-visible:ring-white/50"
     >
       <svg class="size-full">
         <use href="/ui.svg#search"></use>
@@ -45,7 +46,7 @@ const subpath = pathname.match(/[^/]+/g)
       href="/rss.xml"
       target="_blank"
       aria-label={`Rss feed for ${SITE.TITLE}`}
-      class="size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white"
+      class="size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 outline-none transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black focus-visible:ring-2 focus-visible:ring-black/50 dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white dark:focus-visible:ring-white/50"
     >
       <svg class="size-full">
         <use href="/ui.svg#rss"></use>
@@ -55,7 +56,7 @@ const subpath = pathname.match(/[^/]+/g)
     <button
       id="drawer-theme-button"
       aria-label={`Toggle light and dark theme`}
-      class="size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white"
+      class="size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 outline-none transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black focus-visible:ring-2 focus-visible:ring-black/50 dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white dark:focus-visible:ring-white/50"
     >
       <svg class="block size-full dark:hidden">
         <use href="/ui.svg#sun"></use>

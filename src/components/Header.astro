@@ -12,7 +12,7 @@ import Container from "@components/Container.astro"
       <div class="absolute left-0 top-1/2 flex -translate-y-1/2 gap-1 font-semibold">
         <a
           href="/"
-          class="flex gap-1 text-current transition-colors duration-300 ease-in-out hover:text-black dark:hover:text-white"
+          class="flex gap-1 rounded-sm text-current outline-none transition-colors duration-300 ease-in-out hover:text-black focus-visible:ring-2 focus-visible:ring-black/50 dark:hover:text-white dark:focus-visible:ring-white/50"
         >
           <svg class="size-6 fill-current">
             <use href="/brand.svg#brand"></use>
@@ -33,6 +33,7 @@ import Container from "@components/Container.astro"
                   "h-8 rounded-full px-3 text-current",
                   "flex items-center justify-center",
                   "transition-colors duration-300 ease-in-out",
+                  "outline-none focus-visible:ring-2 focus-visible:ring-black/50 dark:focus-visible:ring-white/50",
                   pathname === LINK.HREF || "/" + subpath?.[0] === LINK.HREF
                     ? "bg-black text-white dark:bg-white dark:text-black"
                     : "hover:bg-black/5 hover:text-black dark:hover:bg-white/20 dark:hover:text-white"
@@ -55,7 +56,8 @@ import Container from "@components/Container.astro"
             "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
             "stroke-current hover:stroke-black hover:dark:stroke-white",
             "border border-black/10 dark:border-white/25",
-            "transition-colors duration-300 ease-in-out"
+            "transition-colors duration-300 ease-in-out",
+            "outline-none focus-visible:ring-2 focus-visible:ring-black/50 dark:focus-visible:ring-white/50"
           )}
         >
           <svg class="size-full">
@@ -73,7 +75,8 @@ import Container from "@components/Container.astro"
             "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
             "stroke-current hover:stroke-black hover:dark:stroke-white",
             "border border-black/10 dark:border-white/25",
-            "transition-colors duration-300 ease-in-out"
+            "transition-colors duration-300 ease-in-out",
+            "outline-none focus-visible:ring-2 focus-visible:ring-black/50 dark:focus-visible:ring-white/50"
           )}
         >
           <svg class="size-full">
@@ -90,7 +93,8 @@ import Container from "@components/Container.astro"
             "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
             "stroke-current hover:stroke-black hover:dark:stroke-white",
             "border border-black/10 dark:border-white/25",
-            "transition-colors duration-300 ease-in-out"
+            "transition-colors duration-300 ease-in-out",
+            "outline-none focus-visible:ring-2 focus-visible:ring-black/50 dark:focus-visible:ring-white/50"
           )}
         >
           <svg class="block size-full dark:hidden">
@@ -110,7 +114,8 @@ import Container from "@components/Container.astro"
             "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
             "stroke-current hover:stroke-black hover:dark:stroke-white",
             "border border-black/10 dark:border-white/25",
-            "transition-colors duration-300 ease-in-out"
+            "transition-colors duration-300 ease-in-out",
+            "outline-none focus-visible:ring-2 focus-visible:ring-black/50 dark:focus-visible:ring-white/50"
           )}
         >
           <svg id="drawer-open" class="size-full">

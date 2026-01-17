@@ -1,16 +1,16 @@
-import type { CollectionEntry } from "astro:content"
 import { createEffect, createSignal, onCleanup, onMount, Show } from "solid-js"
 import Fuse from "fuse.js"
 import ArrowCard from "@components/ArrowCard"
+import type { SearchableEntry } from "@/types"
 
 type Props = {
-  data: CollectionEntry<"blog">[]
+  data: SearchableEntry[]
 }
 
 export default function SearchModal({ data }: Props) {
   const [isOpen, setIsOpen] = createSignal(false)
   const [query, setQuery] = createSignal("")
-  const [results, setResults] = createSignal<CollectionEntry<"blog">[]>([])
+  const [results, setResults] = createSignal<SearchableEntry[]>([])
   let inputRef: HTMLInputElement | undefined
 
   const fuse = new Fuse(data, {
@@ -119,7 +119,7 @@ export default function SearchModal({ data }: Props) {
               autocomplete="off"
               spellcheck={false}
               placeholder="Search posts and projects..."
-              class="w-full bg-transparent px-4 py-4 pl-12 text-lg text-black outline-none placeholder:text-black/50 dark:text-white dark:placeholder:text-white/50"
+              class="w-full bg-transparent px-4 py-4 pl-12 text-lg text-black outline-none ring-inset placeholder:text-black/50 focus-visible:ring-2 focus-visible:ring-black/20 dark:text-white dark:placeholder:text-white/50 dark:focus-visible:ring-white/20"
             />
             <svg class="absolute left-4 top-1/2 size-5 -translate-y-1/2 stroke-current opacity-50">
               <use href="/ui.svg#search" />

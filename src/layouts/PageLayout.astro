@@ -8,7 +8,7 @@ import BackToTop from "@components/BackToTop.astro"
 import ReadingProgress from "@components/ReadingProgress.astro"
 import SearchModal from "@components/SearchModal"
 import { SITE } from "@consts"
-import { type CollectionEntry, getCollection } from "astro:content"
+import { getCollection } from "astro:content"
 
 interface Props {
   title: string
@@ -25,7 +25,7 @@ const { title, description, article } = Astro.props
 // Get data for search modal
 const posts = (await getCollection("blog")).filter((post) => !post.data.draft)
 const projects = (await getCollection("projects")).filter((project) => !project.data.draft)
-const searchData = [...posts, ...projects] as CollectionEntry<"blog">[]
+const searchData = [...posts, ...projects]
 ---
 
 <!doctype html>
