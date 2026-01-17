@@ -24,6 +24,14 @@
       const windowHeight = window.innerHeight
       const scrollY = window.scrollY
 
+      // Check if the end of the article is visible in viewport
+      const hasReachedEnd = articleRect.bottom <= windowHeight
+
+      if (hasReachedEnd) {
+        progressBar!.style.width = "100%"
+        return
+      }
+
       // Calculate progress through the article
       const start = articleTop - windowHeight
       const end = articleTop + articleHeight
