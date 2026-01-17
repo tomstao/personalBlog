@@ -12,4 +12,13 @@ export default defineConfig({
     prefetchAll: true,
     defaultStrategy: "viewport",
   },
+  image: {
+    // Enable sharp for image optimization
+    service: {
+      entrypoint: "astro/assets/services/sharp",
+      config: {
+        limitInputPixels: false,
+      },
+    },
+  },
 })

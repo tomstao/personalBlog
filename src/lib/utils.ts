@@ -14,10 +14,36 @@ export function formatDate(date: Date) {
 }
 
 export function readingTime(html: string) {
-  const textOnly = html.replace(/<[^>]+>/g, "")
-  const wordCount = textOnly.split(/\s+/).length
-  const readingTimeMinutes = (wordCount / 200 + 1).toFixed()
+  // Remove code blocks first (they're read slower)
+  const withoutCode = html.replace(/<pre[\s\S]*?<\/pre>/g, "")
+  const textOnly = withoutCode.replace(/<[^>]+>/g, "")
+  const wordCount = textOnly.split(/\s+/).filter(Boolean).length
+
+  // Count images (add 12 seconds per image)
+  const imageCount = (html.match(/<img/g) || []).length
+  const imageTime = (imageCount * 12) / 60
+
+  // 200 words per minute average reading speed
+  const readingTimeMinutes = Math.ceil(wordCount / 200 + imageTime)
   return `${readingTimeMinutes} min read`
+}
+
+/**
+ * Truncate meta description to optimal SEO length (120-160 chars)
+ * Cuts at word boundary and adds ellipsis if needed
+ */
+export function truncateDescription(description: string, maxLength = 155): string {
+  if (description.length <= maxLength) return description
+
+  // Find the last space before maxLength
+  const truncated = description.slice(0, maxLength)
+  const lastSpace = truncated.lastIndexOf(" ")
+
+  if (lastSpace > maxLength - 30) {
+    return truncated.slice(0, lastSpace) + "..."
+  }
+
+  return truncated + "..."
 }
 
 // Map tag names to devicon icon paths
