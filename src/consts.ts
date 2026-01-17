@@ -3,7 +3,8 @@ import type { Site, Page, Links, Socials } from "@types"
 // Global
 export const SITE: Site = {
   TITLE: "Tao Su's Blog",
-  DESCRIPTION: "Welcome to my blog, This blog is where I share my projects, school-life lessons, and random thoughts on tech, learning, and more. Stick around",
+  DESCRIPTION:
+    "Welcome to my blog, This blog is where I share my projects, school-life lessons, and random thoughts on tech, learning, and more. Stick around",
   AUTHOR: "Tao Su",
 }
 
@@ -19,7 +20,7 @@ export const BLOG: Page = {
   DESCRIPTION: "Writing on topics I am passionate about.",
 }
 
-// Projects Page 
+// Projects Page
 export const PROJECTS: Page = {
   TITLE: "Projects",
   DESCRIPTION: "Recent projects I have worked on.",
@@ -33,49 +34,52 @@ export const SEARCH: Page = {
 
 // Links
 export const LINKS: Links = [
-  { 
-    TEXT: "Home", 
-    HREF: "/", 
+  {
+    TEXT: "Home",
+    HREF: "/",
   },
-  { 
-    TEXT: "Work", 
-    HREF: "/work", 
+  {
+    TEXT: "Work",
+    HREF: "/work",
   },
-  { 
-    TEXT: "Blog", 
-    HREF: "/blog", 
+  {
+    TEXT: "Blog",
+    HREF: "/blog",
   },
-  { 
-    TEXT: "Projects", 
-    HREF: "/projects", 
+  {
+    TEXT: "Projects",
+    HREF: "/projects",
+  },
+  {
+    TEXT: "Tags",
+    HREF: "/tags",
   },
 ]
 
 // Socials
 export const SOCIALS: Socials = [
-  { 
+  {
     NAME: "Email",
-    ICON: "email", 
+    ICON: "email",
     TEXT: "tao@taosu.blog",
-    HREF: "mailto:tao@taosu.blog"
+    HREF: "mailto:tao@taosu.blog",
   },
-  { 
+  {
     NAME: "Github",
     ICON: "github",
     TEXT: "Tao Su",
-    HREF: "https://github.com/tomstao"
+    HREF: "https://github.com/tomstao",
   },
-  { 
+  {
     NAME: "LinkedIn",
     ICON: "linkedin",
     TEXT: "Tao Su",
     HREF: "https://www.linkedin.com/in/tao-su/",
   },
-  { 
+  {
     NAME: "Twitter",
     ICON: "twitter-x",
     TEXT: "Tao Su",
     HREF: "https://x.com/su_tao9637",
   },
 ]
-

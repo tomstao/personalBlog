@@ -1,0 +1,80 @@
+---
+interface Props {
+  title: string
+  url: string
+}
+
+const { title, url } = Astro.props
+const encodedTitle = encodeURIComponent(title)
+const encodedUrl = encodeURIComponent(url)
+
+const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`
+const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`
+---
+
+<div class="flex items-center gap-2">
+  <span class="text-sm uppercase opacity-75">Share</span>
+  <div class="flex gap-1">
+    <a
+      href={twitterUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Share on Twitter"
+      class="group flex size-9 items-center justify-center rounded-full border border-black/15 bg-transparent p-2 transition-colors duration-300 ease-in-out hover:bg-black/5 dark:border-white/20 hover:dark:bg-white/20"
+    >
+      <svg class="size-full fill-current group-hover:fill-black group-hover:dark:fill-white">
+        <use href="/social.svg#twitter-x"></use>
+      </svg>
+    </a>
+    <a
+      href={linkedinUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Share on LinkedIn"
+      class="group flex size-9 items-center justify-center rounded-full border border-black/15 bg-transparent p-2 transition-colors duration-300 ease-in-out hover:bg-black/5 dark:border-white/20 hover:dark:bg-white/20"
+    >
+      <svg class="size-full fill-current group-hover:fill-black group-hover:dark:fill-white">
+        <use href="/social.svg#linkedin"></use>
+      </svg>
+    </a>
+    <button
+      id="copy-link-btn"
+      aria-label="Copy link to clipboard"
+      class="group flex size-9 items-center justify-center rounded-full border border-black/15 bg-transparent p-2 transition-colors duration-300 ease-in-out hover:bg-black/5 dark:border-white/20 hover:dark:bg-white/20"
+      data-url={url}
+    >
+      <svg class="size-full stroke-current group-hover:stroke-black group-hover:dark:stroke-white">
+        <use href="/ui.svg#link"></use>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  function initCopyLink() {
+    const btn = document.getElementById("copy-link-btn")
+    if (!btn) return
+
+    btn.addEventListener("click", async () => {
+      const url = btn.getAttribute("data-url")
+      if (!url) return
+
+      try {
+        await navigator.clipboard.writeText(url)
+        btn.classList.add("copied")
+        setTimeout(() => btn.classList.remove("copied"), 2000)
+      } catch (err) {
+        console.error("Failed to copy link:", err)
+      }
+    })
+  }
+
+  document.addEventListener("astro:after-swap", initCopyLink)
+  initCopyLink()
+</script>
+
+<style>
+  #copy-link-btn.copied {
+    @apply border-green-500 bg-green-500/10;
+  }
+</style>

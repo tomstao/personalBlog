@@ -1,0 +1,65 @@
+---
+import { getCollection } from "astro:content"
+import PageLayout from "@layouts/PageLayout.astro"
+import TopLayout from "@layouts/TopLayout.astro"
+import BottomLayout from "@layouts/BottomLayout.astro"
+
+const posts = (await getCollection("blog")).filter((post) => !post.data.draft)
+const projects = (await getCollection("projects")).filter((project) => !project.data.draft)
+
+// Combine all tags from both collections with counts
+const tagCounts = new Map<string, { blog: number; projects: number }>()
+
+posts.forEach((post) => {
+  post.data.tags.forEach((tag: string) => {
+    const existing = tagCounts.get(tag.toLowerCase()) || { blog: 0, projects: 0 }
+    tagCounts.set(tag.toLowerCase(), {
+      ...existing,
+      blog: existing.blog + 1,
+    })
+  })
+})
+
+projects.forEach((project) => {
+  project.data.tags.forEach((tag: string) => {
+    const existing = tagCounts.get(tag.toLowerCase()) || { blog: 0, projects: 0 }
+    tagCounts.set(tag.toLowerCase(), {
+      ...existing,
+      projects: existing.projects + 1,
+    })
+  })
+})
+
+// Sort tags alphabetically
+const sortedTags = [...tagCounts.entries()].sort((a, b) => a[0].localeCompare(b[0]))
+---
+
+<PageLayout title="Tags" description="Browse all tags">
+  <TopLayout>
+    <div class="animate page-heading">Tags</div>
+  </TopLayout>
+  <BottomLayout>
+    <div class="animate">
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+        {
+          sortedTags.map(([tag, counts]) => {
+            const total = counts.blog + counts.projects
+            return (
+              <a
+                href={`/tags/${tag}`}
+                class="group flex flex-col rounded-lg border border-black/15 p-4 transition-colors duration-300 ease-in-out hover:bg-black/5 dark:border-white/20 hover:dark:bg-white/10"
+              >
+                <span class="font-semibold capitalize text-black group-hover:text-black dark:text-white group-hover:dark:text-white">
+                  {tag}
+                </span>
+                <span class="mt-1 text-sm opacity-75">
+                  {total} {total === 1 ? "post" : "posts"}
+                </span>
+              </a>
+            )
+          })
+        }
+      </div>
+    </div>
+  </BottomLayout>
+</PageLayout>
