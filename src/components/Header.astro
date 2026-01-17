@@ -167,7 +167,7 @@ import Container from "@components/Container.astro"
     const searchButton = document.getElementById("search-button")
     searchButton?.addEventListener("click", openSearchModal)
 
-    // Use shared nav utility
+    // Use shared nav utility (defined in public/js/nav.js)
     if (typeof updateHeaderNav === "function") {
       updateHeaderNav()
     }

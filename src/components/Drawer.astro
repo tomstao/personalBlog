@@ -87,7 +87,7 @@ const subpath = pathname.match(/[^/]+/g)
       window.dispatchEvent(new CustomEvent("open-search-modal"))
     })
 
-    // Use shared nav utility
+    // Use shared nav utility (defined in public/js/nav.js)
     if (typeof updateDrawerNav === "function") {
       updateDrawerNav()
     }

@@ -15,8 +15,8 @@ A one line summary of what each file and directory is for:
 /
 ├── public/ // Files publicly available to the browser
 │   ├── fonts/ // The default fonts for Astro Sphere
-│   │   └── atkinson-bold.woff  // default font weight 700
-│   │   └── atkinson-regular.woff // default font weight 400
+│   │   └── atkinson-bold.woff2  // default font weight 700
+│   │   └── atkinson-regular.woff2 // default font weight 400
 │   ├── js/ // Javascript that will be imported into <head>
 │   │   └── animate.js // function for animating page elements
 │   │   └── bg.js // function for generating the background
