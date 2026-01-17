@@ -12,8 +12,8 @@ function changeTheme() {
            -o-transition: none !important;
            -ms-transition: none !important;
            transition: none !important;
-        }`,
-    ),
+        }`
+    )
   )
   document.head.appendChild(css)
 
@@ -56,8 +56,8 @@ window.onload = () => {
     const drawerThemeButton = document.getElementById("drawer-theme-button")
     headerThemeButton?.addEventListener("click", changeTheme)
     drawerThemeButton?.addEventListener("click", changeTheme)
-  } 
-  
+  }
+
   document.addEventListener("astro:after-swap", initializeThemeButtons)
   initializeThemeButtons()
 }
