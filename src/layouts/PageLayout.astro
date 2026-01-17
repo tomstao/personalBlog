@@ -33,5 +33,40 @@ const { title, description, article } = Astro.props
       <slot />
     </main>
     <Footer />
+    <script>
+      function initSearchShortcut() {
+        document.addEventListener("keydown", (e: KeyboardEvent) => {
+          // Skip if user is typing in an input/textarea
+          const target = e.target as HTMLElement
+          if (
+            target.tagName === "INPUT" ||
+            target.tagName === "TEXTAREA" ||
+            target.isContentEditable
+          ) {
+            return
+          }
+
+          // Check for "/" or Cmd/Ctrl+K
+          const isSlash = e.key === "/"
+          const isCmdK = (e.metaKey || e.ctrlKey) && e.key === "k"
+
+          if (isSlash || isCmdK) {
+            e.preventDefault()
+
+            if (window.location.pathname === "/search" || window.location.pathname === "/search/") {
+              // Already on search page, focus the input
+              const searchInput = document.querySelector('input[name="search"]') as HTMLInputElement
+              searchInput?.focus()
+            } else {
+              // Navigate to search page
+              window.location.href = "/search"
+            }
+          }
+        })
+      }
+
+      document.addEventListener("astro:after-swap", initSearchShortcut)
+      initSearchShortcut()
+    </script>
   </body>
 </html>

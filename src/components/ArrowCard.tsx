@@ -1,4 +1,4 @@
-import { formatDate } from "@lib/utils"
+import { formatDate, readingTime } from "@lib/utils"
 import type { CollectionEntry } from "astro:content"
 
 type Props = {
@@ -21,6 +21,8 @@ export default function ArrowCard({ entry, pill }: Props) {
             </div>
           )}
           <div class="text-sm uppercase">{formatDate(entry.data.date)}</div>
+          <span class="text-black/25 dark:text-white/25">•</span>
+          <div class="text-sm">{readingTime(entry.body)}</div>
         </div>
         <div class="mt-3 font-semibold text-black dark:text-white">{entry.data.title}</div>
 
