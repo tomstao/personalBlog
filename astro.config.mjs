@@ -9,7 +9,7 @@ export default defineConfig({
   site: "https://astro-sphere-demo.vercel.app",
   integrations: [mdx(), sitemap(), solidJs(), tailwind({ applyBaseStyles: false })],
   prefetch: {
-    prefetchAll: false,
-    defaultStrategy: "hover",
+    prefetchAll: true,
+    defaultStrategy: "viewport",
   },
 })

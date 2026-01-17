@@ -91,10 +91,10 @@ article {
 /** styles for public /animation.js */
 .animate {
   opacity: 0;
-  transform: translateY(50px);
+  transform: translateY(20px);
   transition:
-    opacity 1s ease,
-    transform 1s ease;
+    opacity 0.4s ease-out,
+    transform 0.4s ease-out;
 }
 
 .animate.show {

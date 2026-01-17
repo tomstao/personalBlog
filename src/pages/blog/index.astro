@@ -7,11 +7,12 @@ import Blog from "@components/Blog"
 import { BLOG } from "@consts"
 
 const posts = (await getCollection("blog"))
-  .filter(post => !post.data.draft)
+  .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 
-const tags = [...new Set(posts.flatMap(post => post.data.tags))]
-  .sort((a, b) => a.localeCompare(b))
+const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b) =>
+  a.localeCompare(b)
+)
 ---
 
 <PageLayout title={BLOG.TITLE} description={BLOG.DESCRIPTION}>
@@ -22,9 +23,7 @@ const tags = [...new Set(posts.flatMap(post => post.data.tags))]
   </TopLayout>
   <BottomLayout>
     <div class="animate">
-      <Blog client:load tags={tags} data={posts} />
+      <Blog client:idle tags={tags} data={posts} />
     </div>
   </BottomLayout>
 </PageLayout>
-
-
