@@ -6,7 +6,7 @@ import Footer from "@components/Footer.astro"
 import Drawer from "@components/Drawer.astro"
 import BackToTop from "@components/BackToTop.astro"
 import ReadingProgress from "@components/ReadingProgress.astro"
-import SearchModal from "@components/SearchModal"
+import SearchWrapper from "@components/SearchWrapper"
 import { SITE } from "@consts"
 import { getCollection } from "astro:content"
 
@@ -42,6 +42,6 @@ const searchData = [...posts, ...projects]
     </main>
     <Footer />
     <BackToTop />
-    <SearchModal client:only="solid-js" data={searchData} />
+    <SearchWrapper client:idle data={searchData} />
   </body>
 </html>
