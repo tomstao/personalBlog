@@ -49,21 +49,38 @@ const LUCIDE_TAGS: Record<string, string> = {
   stylex: "code",
 }
 
-export function getTagIcon(tag: string): string | null {
+// Icons that need dark:invert for dark mode
+const INVERT_ICONS = new Set(["markdown", "md"])
+
+interface TagIconResult {
+  src: string
+  needsInvert: boolean
+}
+
+export function getTagIcon(tag: string): TagIconResult {
   const normalized = tag.toLowerCase()
 
   // Check devicon first
   const deviconPath = DEVICON_TAGS[normalized]
   if (deviconPath) {
-    return `/devicons/${deviconPath}.svg`
+    return {
+      src: `/devicons/${deviconPath}.svg`,
+      needsInvert: INVERT_ICONS.has(normalized),
+    }
   }
 
-  // Fallback to lucide
+  // Fallback to lucide (all lucide icons need invert)
   const lucideIcon = LUCIDE_TAGS[normalized]
   if (lucideIcon) {
-    return `/lucide/${lucideIcon}.svg`
+    return {
+      src: `/lucide/${lucideIcon}.svg`,
+      needsInvert: true,
+    }
   }
 
   // Default fallback
-  return "/lucide/tag.svg"
+  return {
+    src: "/lucide/tag.svg",
+    needsInvert: true,
+  }
 }
