@@ -48,7 +48,6 @@ export function truncateDescription(description: string, maxLength = 155): strin
 
 // Map tag names to devicon icon paths
 const DEVICON_TAGS: Record<string, string> = {
-  astro: "astro/astro-original",
   react: "react/react-original",
   vue: "vuejs/vuejs-original",
   svelte: "svelte/svelte-original",
@@ -75,16 +74,26 @@ const LUCIDE_TAGS: Record<string, string> = {
   stylex: "code",
 }
 
-// Icons that need dark:invert for dark mode
+// Icons that need dark:invert for dark mode (dark-colored icons)
 const INVERT_ICONS = new Set(["markdown", "md"])
 
 interface TagIconResult {
   src: string
   needsInvert: boolean
+  isBrandIcon?: boolean
 }
 
 export function getTagIcon(tag: string): TagIconResult {
   const normalized = tag.toLowerCase()
+
+  // Special case: Astro uses brand.svg with fill-current for proper dark mode
+  if (normalized === "astro") {
+    return {
+      src: "/brand.svg#brand",
+      needsInvert: false,
+      isBrandIcon: true,
+    }
+  }
 
   // Check devicon first
   const deviconPath = DEVICON_TAGS[normalized]

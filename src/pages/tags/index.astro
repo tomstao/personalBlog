@@ -52,11 +52,17 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => a[0].localeCompare(b[
                 class="group flex flex-col rounded-lg border border-black/15 p-4 transition-colors duration-300 ease-in-out hover:bg-black/5 dark:border-white/20 hover:dark:bg-white/10"
               >
                 <div class="flex items-center gap-2">
-                  <img
-                    src={icon.src}
-                    alt={tag}
-                    class:list={["size-5 shrink-0", { "dark:invert": icon.needsInvert }]}
-                  />
+                  {icon.isBrandIcon ? (
+                    <svg class="size-5 shrink-0 fill-current text-black dark:text-white">
+                      <use href={icon.src} />
+                    </svg>
+                  ) : (
+                    <img
+                      src={icon.src}
+                      alt={tag}
+                      class:list={["size-5 shrink-0", { "dark:invert": icon.needsInvert }]}
+                    />
+                  )}
                   <span class="font-semibold capitalize text-black group-hover:text-black dark:text-white group-hover:dark:text-white">
                     {tag}
                   </span>

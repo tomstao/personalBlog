@@ -80,11 +80,19 @@ const icon = getTagIcon(tag)
         </span>
       </a>
       <div class="flex items-center gap-3">
-        <img
-          src={icon.src}
-          alt={tag}
-          class:list={["size-8 shrink-0", { "dark:invert": icon.needsInvert }]}
-        />
+        {
+          icon.isBrandIcon ? (
+            <svg class="size-8 shrink-0 fill-current text-black dark:text-white">
+              <use href={icon.src} />
+            </svg>
+          ) : (
+            <img
+              src={icon.src}
+              alt={tag}
+              class:list={["size-8 shrink-0", { "dark:invert": icon.needsInvert }]}
+            />
+          )
+        }
         <h1 class="page-heading capitalize">{tag}</h1>
       </div>
       <p class="mt-1 opacity-75">
