@@ -180,7 +180,6 @@ export default function SearchModal({ data }: Props) {
                   <For each={Object.entries(groupedResults())}>
                     {([category, items]) => {
                       let globalIndexOffset = 0
-                      const allResults = results()
                       for (const [cat] of Object.entries(groupedResults())) {
                         if (cat === category) break
                         globalIndexOffset += groupedResults()[cat].length
