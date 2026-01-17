@@ -17,10 +17,20 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
       <div class="mb-3 text-sm font-semibold uppercase text-black dark:text-white">
         Table of Contents
       </div>
-      <ul class="flex flex-col gap-1.5 text-sm">
+      <ul class="flex flex-col gap-2">
         {toc.map((heading) => (
-          <li class:list={["transition-colors duration-200", heading.depth === 3 && "ml-4"]}>
-            <a href={`#${heading.slug}`} class="hover:text-black dark:hover:text-white">
+          <li
+            class:list={[
+              "transition-colors duration-200",
+              heading.depth === 2
+                ? "font-medium text-black/80 dark:text-white/80"
+                : "ml-4 text-sm text-black/60 dark:text-white/60",
+            ]}
+          >
+            <a
+              href={`#${heading.slug}`}
+              class="hover:text-black hover:underline dark:hover:text-white"
+            >
               {heading.text}
             </a>
           </li>
