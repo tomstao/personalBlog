@@ -4,6 +4,7 @@ import PageLayout from "@layouts/PageLayout.astro"
 import TopLayout from "@layouts/TopLayout.astro"
 import BottomLayout from "@layouts/BottomLayout.astro"
 import ArrowCard from "@components/ArrowCard"
+import { getTagIcon } from "@lib/utils"
 
 export async function getStaticPaths() {
   const posts = (await getCollection("blog")).filter((post) => !post.data.draft)
@@ -39,6 +40,7 @@ const projects = (await getCollection("projects"))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
 
 const totalCount = posts.length + projects.length
+const icon = getTagIcon(tag)
 ---
 
 <PageLayout title={`Tag: ${tag}`} description={`All posts tagged with "${tag}"`}>
@@ -77,7 +79,16 @@ const totalCount = posts.length + projects.length
           All tags
         </span>
       </a>
-      <h1 class="page-heading capitalize">{tag}</h1>
+      <div class="flex items-center gap-3">
+        {
+          icon && (
+            <svg class="size-8 shrink-0">
+              <use href={`/stack.svg#${icon}`} />
+            </svg>
+          )
+        }
+        <h1 class="page-heading capitalize">{tag}</h1>
+      </div>
       <p class="mt-1 opacity-75">
         {totalCount}
         {totalCount === 1 ? "post" : "posts"} tagged with "{tag}"

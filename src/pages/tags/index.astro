@@ -3,6 +3,7 @@ import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
 import TopLayout from "@layouts/TopLayout.astro"
 import BottomLayout from "@layouts/BottomLayout.astro"
+import { getTagIcon } from "@lib/utils"
 
 const posts = (await getCollection("blog")).filter((post) => !post.data.draft)
 const projects = (await getCollection("projects")).filter((project) => !project.data.draft)
@@ -44,14 +45,22 @@ const sortedTags = [...tagCounts.entries()].sort((a, b) => a[0].localeCompare(b[
         {
           sortedTags.map(([tag, counts]) => {
             const total = counts.blog + counts.projects
+            const icon = getTagIcon(tag)
             return (
               <a
                 href={`/tags/${tag}`}
                 class="group flex flex-col rounded-lg border border-black/15 p-4 transition-colors duration-300 ease-in-out hover:bg-black/5 dark:border-white/20 hover:dark:bg-white/10"
               >
-                <span class="font-semibold capitalize text-black group-hover:text-black dark:text-white group-hover:dark:text-white">
-                  {tag}
-                </span>
+                <div class="flex items-center gap-2">
+                  {icon && (
+                    <svg class="size-5 shrink-0">
+                      <use href={`/stack.svg#${icon}`} />
+                    </svg>
+                  )}
+                  <span class="font-semibold capitalize text-black group-hover:text-black dark:text-white group-hover:dark:text-white">
+                    {tag}
+                  </span>
+                </div>
                 <span class="mt-1 text-sm opacity-75">
                   {total} {total === 1 ? "post" : "posts"}
                 </span>
