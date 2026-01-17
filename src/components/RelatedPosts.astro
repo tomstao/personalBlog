@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from "astro:content"
+import { getCollection } from "astro:content"
+import ArrowCard from "@components/ArrowCard"
+
+interface Props {
+  entry: CollectionEntry<"blog"> | CollectionEntry<"projects">
+  maxPosts?: number
+}
+
+const { entry, maxPosts = 3 } = Astro.props
+const { collection, slug, data } = entry
+const currentTags = data.tags
+
+// Get all posts from the same collection
+const allPosts = (await getCollection(collection))
+  .filter((post) => !post.data.draft && post.slug !== slug)
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+
+// Score posts by number of matching tags
+const scoredPosts = allPosts.map((post) => {
+  const matchingTags = post.data.tags.filter((tag: string) =>
+    currentTags.some((currentTag: string) => currentTag.toLowerCase() === tag.toLowerCase())
+  )
+  return { post, score: matchingTags.length }
+})
+
+// Filter posts with at least one matching tag and sort by score
+const relatedPosts = scoredPosts
+  .filter((item) => item.score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, maxPosts)
+  .map((item) => item.post)
+---
+
+{
+  relatedPosts.length > 0 && (
+    <div class="mt-12 border-t border-black/10 pt-8 dark:border-white/20">
+      <div class="mb-4 text-sm font-semibold uppercase text-black dark:text-white">
+        Related {collection === "blog" ? "Posts" : "Projects"}
+      </div>
+      <ul class="flex flex-col gap-3">
+        {relatedPosts.map((post) => (
+          <li>
+            <ArrowCard entry={post} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}

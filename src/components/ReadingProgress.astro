@@ -1,0 +1,44 @@
+---
+// Reading progress bar - shows scroll progress through the article
+---
+
+<div
+  id="reading-progress"
+  class="fixed left-0 top-16 z-40 h-1 bg-black transition-all duration-150 dark:bg-white"
+  style="width: 0%"
+>
+</div>
+
+<script>
+  function initReadingProgress() {
+    const progressBar = document.getElementById("reading-progress")
+    if (!progressBar) return
+
+    const article = document.querySelector("article")
+    if (!article) return
+
+    function updateProgress() {
+      const articleRect = article!.getBoundingClientRect()
+      const articleTop = articleRect.top + window.scrollY
+      const articleHeight = articleRect.height
+      const windowHeight = window.innerHeight
+      const scrollY = window.scrollY
+
+      // Calculate progress through the article
+      const start = articleTop - windowHeight
+      const end = articleTop + articleHeight
+      const current = scrollY - start
+      const total = end - start
+
+      const progress = Math.min(Math.max((current / total) * 100, 0), 100)
+      progressBar!.style.width = `${progress}%`
+    }
+
+    window.addEventListener("scroll", updateProgress, { passive: true })
+    updateProgress()
+  }
+
+  // Initialize on page load and after Astro page transitions
+  document.addEventListener("astro:after-swap", initReadingProgress)
+  initReadingProgress()
+</script>
