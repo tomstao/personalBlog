@@ -36,6 +36,17 @@ export default function SearchModal({ data }: Props) {
     return groups
   })
 
+  // Pre-calculate global index offsets for each category
+  const categoryOffsets = createMemo(() => {
+    const offsets: Record<string, number> = {}
+    let offset = 0
+    for (const [category, items] of Object.entries(groupedResults())) {
+      offsets[category] = offset
+      offset += items.length
+    }
+    return offsets
+  })
+
   // Focus input and reset state when modal opens
   createEffect(() => {
     if (isOpen()) {
@@ -179,11 +190,7 @@ export default function SearchModal({ data }: Props) {
                 >
                   <For each={Object.entries(groupedResults())}>
                     {([category, items]) => {
-                      let globalIndexOffset = 0
-                      for (const [cat] of Object.entries(groupedResults())) {
-                        if (cat === category) break
-                        globalIndexOffset += groupedResults()[cat].length
-                      }
+                      const globalIndexOffset = categoryOffsets()[category]
 
                       return (
                         <div class="mb-2">

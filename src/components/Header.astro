@@ -1,9 +1,11 @@
 ---
 import { SITE, LINKS } from "@consts"
 import { cn } from "@lib/utils"
+import Container from "@components/Container.astro"
+import IconButton from "@components/IconButton.astro"
+
 const { pathname } = Astro.url
 const subpath = pathname.match(/[^/]+/g)
-import Container from "@components/Container.astro"
 ---
 
 <header id="header" class="fixed top-0 z-50 h-16 w-full">
@@ -47,67 +49,32 @@ import Container from "@components/Container.astro"
       </div>
 
       <div class="buttons absolute right-0 top-1/2 flex -translate-y-1/2 gap-1">
-        <button
+        <IconButton
           id="search-button"
-          aria-label={`Search blog posts and projects on ${SITE.TITLE}`}
-          class={cn(
-            "hidden md:flex",
-            "size-9 rounded-full p-2 items-center justify-center",
-            "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
-            "stroke-current hover:stroke-black hover:dark:stroke-white",
-            "border border-black/10 dark:border-white/25",
-            "transition-colors duration-300 ease-in-out",
-            "outline-none focus-visible:ring-2 focus-visible:ring-black/50 dark:focus-visible:ring-white/50"
-          )}
-        >
-          <svg class="size-full">
-            <use href="/ui.svg#search"></use>
-          </svg>
-        </button>
+          ariaLabel={`Search blog posts and projects on ${SITE.TITLE}`}
+          icon="search"
+          visibility="hidden md:flex"
+        />
 
-        <a
+        <IconButton
           href="/rss.xml"
-          target="_blank"
-          aria-label={`Rss feed for ${SITE.TITLE}`}
-          class={cn(
-            "hidden md:flex",
-            "size-9 rounded-full p-2 items-center justify-center",
-            "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
-            "stroke-current hover:stroke-black hover:dark:stroke-white",
-            "border border-black/10 dark:border-white/25",
-            "transition-colors duration-300 ease-in-out",
-            "outline-none focus-visible:ring-2 focus-visible:ring-black/50 dark:focus-visible:ring-white/50"
-          )}
-        >
-          <svg class="size-full">
-            <use href="/ui.svg#rss"></use>
-          </svg>
-        </a>
+          external
+          ariaLabel={`Rss feed for ${SITE.TITLE}`}
+          icon="rss"
+          visibility="hidden md:flex"
+        />
 
-        <button
+        <IconButton
           id="header-theme-button"
-          aria-label={`Toggle light and dark theme`}
-          class={cn(
-            "hidden md:flex",
-            "size-9 rounded-full p-2 items-center justify-center",
-            "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
-            "stroke-current hover:stroke-black hover:dark:stroke-white",
-            "border border-black/10 dark:border-white/25",
-            "transition-colors duration-300 ease-in-out",
-            "outline-none focus-visible:ring-2 focus-visible:ring-black/50 dark:focus-visible:ring-white/50"
-          )}
-        >
-          <svg class="block size-full dark:hidden">
-            <use href="/ui.svg#sun"></use>
-          </svg>
-          <svg class="hidden size-full dark:block">
-            <use href="/ui.svg#moon"></use>
-          </svg>
-        </button>
+          ariaLabel="Toggle light and dark theme"
+          icon="sun"
+          darkIcon="moon"
+          visibility="hidden md:flex"
+        />
 
         <button
           id="header-drawer-button"
-          aria-label={`Toggle drawer open and closed`}
+          aria-label="Toggle drawer open and closed"
           class={cn(
             "flex md:hidden",
             "size-9 rounded-full p-2 items-center justify-center",

@@ -1,0 +1,84 @@
+---
+import { cn } from "@lib/utils"
+
+type Props = {
+  id?: string
+  href?: string
+  ariaLabel: string
+  icon: string
+  /** Additional icon for theme toggle (shows in dark mode) */
+  darkIcon?: string
+  /** Whether to open link in new tab */
+  external?: boolean
+  /** Visibility classes like "hidden md:flex" */
+  visibility?: string
+  class?: string
+}
+
+const {
+  id,
+  href,
+  ariaLabel,
+  icon,
+  darkIcon,
+  external = false,
+  visibility = "flex",
+  class: className,
+} = Astro.props
+
+const baseClasses = cn(
+  visibility,
+  "size-9 rounded-full p-2 items-center justify-center",
+  "bg-transparent hover:bg-black/5 dark:hover:bg-white/20",
+  "stroke-current hover:stroke-black hover:dark:stroke-white",
+  "border border-black/10 dark:border-white/25",
+  "transition-colors duration-300 ease-in-out",
+  "outline-none focus-visible:ring-2 focus-visible:ring-black/50 dark:focus-visible:ring-white/50",
+  className
+)
+---
+
+{
+  href ? (
+    <a
+      id={id}
+      href={href}
+      target={external ? "_blank" : undefined}
+      aria-label={ariaLabel}
+      class={baseClasses}
+    >
+      {darkIcon ? (
+        <>
+          <svg class="block size-full dark:hidden">
+            <use href={`/ui.svg#${icon}`} />
+          </svg>
+          <svg class="hidden size-full dark:block">
+            <use href={`/ui.svg#${darkIcon}`} />
+          </svg>
+        </>
+      ) : (
+        <svg class="size-full">
+          <use href={`/ui.svg#${icon}`} />
+        </svg>
+      )}
+    </a>
+  ) : (
+    <button id={id} aria-label={ariaLabel} class={baseClasses}>
+      {darkIcon ? (
+        <>
+          <svg class="block size-full dark:hidden">
+            <use href={`/ui.svg#${icon}`} />
+          </svg>
+          <svg class="hidden size-full dark:block">
+            <use href={`/ui.svg#${darkIcon}`} />
+          </svg>
+        </>
+      ) : (
+        <svg class="size-full">
+          <use href={`/ui.svg#${icon}`} />
+        </svg>
+      )}
+      <slot />
+    </button>
+  )
+}

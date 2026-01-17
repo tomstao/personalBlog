@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection } from "astro:content"
 import type { MarkdownHeading } from "astro"
 import TableOfContents from "@components/TableOfContents.astro"
 import RelatedPosts from "@components/RelatedPosts.astro"
+import AnimatedArrow from "@components/AnimatedArrow.astro"
 
 type Props = {
   entry: CollectionEntry<"blog"> | CollectionEntry<"projects">
@@ -42,29 +43,7 @@ const next = items[(index + 1) % items.length]
           {prev.data.title}
         </div>
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="order-1 rotate-180 stroke-current group-hover:stroke-black group-hover:dark:stroke-white"
-      >
-        <line
-          x1="5"
-          y1="12"
-          x2="19"
-          y2="12"
-          class="translate-x-4 scale-x-0 transition-all duration-300 ease-in-out group-hover:translate-x-1 group-hover:scale-x-100"
-        ></line>
-        <polyline
-          points="12 5 19 12 12 19"
-          class="translate-x-0 transition-all duration-300 ease-in-out group-hover:translate-x-1"
-        ></polyline>
-      </svg>
+      <AnimatedArrow direction="left" class="order-1" />
     </a>
     <a
       href={`/${next.collection}/${next.slug}`}
@@ -78,29 +57,7 @@ const next = items[(index + 1) % items.length]
           {next.data.title}
         </div>
       </div>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="stroke-current group-hover:stroke-black group-hover:dark:stroke-white"
-      >
-        <line
-          x1="5"
-          y1="12"
-          x2="19"
-          y2="12"
-          class="translate-x-4 scale-x-0 transition-all duration-300 ease-in-out group-hover:translate-x-1 group-hover:scale-x-100"
-        ></line>
-        <polyline
-          points="12 5 19 12 12 19"
-          class="translate-x-0 transition-all duration-300 ease-in-out group-hover:translate-x-1"
-        ></polyline>
-      </svg>
+      <AnimatedArrow direction="right" />
     </a>
   </div>
 </div>

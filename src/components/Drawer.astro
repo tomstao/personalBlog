@@ -1,6 +1,8 @@
 ---
 import { SITE, LINKS } from "@consts"
 import { cn } from "@lib/utils"
+import IconButton from "@components/IconButton.astro"
+
 const { pathname } = Astro.url
 const subpath = pathname.match(/[^/]+/g)
 ---
@@ -32,39 +34,20 @@ const subpath = pathname.match(/[^/]+/g)
   </nav>
 
   <div class="mt-5 flex gap-1">
-    <button
+    <IconButton
       id="drawer-search-button"
-      aria-label={`Search blog posts and projects on ${SITE.TITLE}`}
-      class="size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 outline-none transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black focus-visible:ring-2 focus-visible:ring-black/50 dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white dark:focus-visible:ring-white/50"
-    >
-      <svg class="size-full">
-        <use href="/ui.svg#search"></use>
-      </svg>
-    </button>
+      ariaLabel={`Search blog posts and projects on ${SITE.TITLE}`}
+      icon="search"
+    />
 
-    <a
-      href="/rss.xml"
-      target="_blank"
-      aria-label={`Rss feed for ${SITE.TITLE}`}
-      class="size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 outline-none transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black focus-visible:ring-2 focus-visible:ring-black/50 dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white dark:focus-visible:ring-white/50"
-    >
-      <svg class="size-full">
-        <use href="/ui.svg#rss"></use>
-      </svg>
-    </a>
+    <IconButton href="/rss.xml" external ariaLabel={`Rss feed for ${SITE.TITLE}`} icon="rss" />
 
-    <button
+    <IconButton
       id="drawer-theme-button"
-      aria-label={`Toggle light and dark theme`}
-      class="size-9 items-center justify-center rounded-full border border-black/10 bg-transparent stroke-current p-2 outline-none transition-colors duration-300 ease-in-out hover:bg-black/5 hover:stroke-black focus-visible:ring-2 focus-visible:ring-black/50 dark:border-white/25 dark:hover:bg-white/20 hover:dark:stroke-white dark:focus-visible:ring-white/50"
-    >
-      <svg class="block size-full dark:hidden">
-        <use href="/ui.svg#sun"></use>
-      </svg>
-      <svg class="hidden size-full dark:block">
-        <use href="/ui.svg#moon"></use>
-      </svg>
-    </button>
+      ariaLabel="Toggle light and dark theme"
+      icon="sun"
+      darkIcon="moon"
+    />
   </div>
 </div>
 
