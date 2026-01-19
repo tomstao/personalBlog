@@ -13,6 +13,8 @@ tags:
 
 I recently built an AI-powered fitness coach chatbot and wanted to share how everything fits together. This post walks through the architecture, from the Mastra agent definition on the backend to the React chat interface on the frontend.
 
+> **Project**: View the full source code on [GitHub](https://github.com/tomstao/mastraAgent) or check out the [project page](/projects/fitness-coach-chatbot).
+
 ## The Tech Stack
 
 Before diving in, here's what we're working with:
