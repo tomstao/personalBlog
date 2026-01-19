@@ -62,6 +62,8 @@ const DEVICON_TAGS: Record<string, string> = {
   solid: "solidjs/solidjs-original",
   markdown: "markdown/markdown-original",
   md: "markdown/markdown-original",
+  nextjs: "nextjs/nextjs-original",
+  "next.js": "nextjs/nextjs-original",
 }
 
 // Map tag names to lucide icon names (fallback for non-dev icons)
@@ -72,10 +74,11 @@ const LUCIDE_TAGS: Record<string, string> = {
   mdx: "code",
   "website deploy": "globe",
   stylex: "code",
+  ai: "sparkles",
 }
 
 // Icons that need dark:invert for dark mode (dark-colored icons)
-const INVERT_ICONS = new Set(["markdown", "md"])
+const INVERT_ICONS = new Set(["markdown", "md", "nextjs", "next.js"])
 
 interface TagIconResult {
   src: string
