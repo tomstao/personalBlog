@@ -1,6 +1,6 @@
 ---
-title: "Building an AI Fitness Coach Chatbot with Mastra and Vercel AI SDK"
-summary: "A deep dive into building an AI-powered fitness coach chatbot using the Mastra framework, Vercel AI SDK, and Next.js."
+title: "Learning Notes: Building a Chatbot with Mastra and Vercel AI SDK"
+summary: "Notes from building a simple AI chatbot while learning the Mastra framework and Vercel AI SDK."
 date: "Jan 18 2025"
 draft: false
 tags:
@@ -11,9 +11,9 @@ tags:
   - React
 ---
 
-I recently built an AI-powered fitness coach chatbot and wanted to share how everything fits together. This post walks through the architecture, from the Mastra agent definition on the backend to the React chat interface on the frontend.
+I've been learning about AI agent frameworks lately and decided to build a simple chatbot to understand how Mastra and the Vercel AI SDK work together. This post is mostly my notes on how the pieces connect.
 
-> **Project**: View the full source code on [GitHub](https://github.com/tomstao/mastraAgent) or check out the [project page](/projects/fitness-coach-chatbot).
+> **Source code**: [GitHub](https://github.com/tomstao/mastraAgent) | [Project page](/projects/fitness-coach-chatbot)
 
 ## The Tech Stack
 
@@ -496,11 +496,4 @@ Mastra automatically reads this when you use the magic string format (`openai/gp
 
 ## Wrapping Up
 
-This architecture gives you a solid foundation for building AI chatbots. The separation between Mastra (agent logic) and Vercel AI SDK (frontend state) keeps things clean. From here, you could add:
-
-- Streaming responses for a real-time typing effect
-- Conversation memory/persistence
-- More tools (TDEE calculator, workout generator)
-- Voice input/output
-
-The full code is structured to scale—add more agents to the Mastra instance, more tools to each agent, and the same patterns hold.
+That's the basic structure. It's a simple project, but it helped me understand how Mastra agents work and how they integrate with the Vercel AI SDK on the frontend. There's still a lot I haven't explored yet—streaming responses, conversation memory, adding more tools—but this was a good starting point for learning the fundamentals.

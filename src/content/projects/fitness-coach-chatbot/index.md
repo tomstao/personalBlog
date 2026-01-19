@@ -1,6 +1,6 @@
 ---
 title: "AI Fitness Coach Chatbot"
-summary: "An AI-powered fitness coach chatbot built with Mastra framework, Vercel AI SDK, and Next.js."
+summary: "A simple chatbot I built while learning the Mastra framework and Vercel AI SDK."
 date: "Jan 18 2025"
 draft: false
 tags:
@@ -12,28 +12,18 @@ tags:
 repoUrl: https://github.com/tomstao/mastraAgent
 ---
 
-An AI fitness coach chatbot named "Apex" that provides personalized fitness advice and can calculate BMI using integrated tools.
+A simple chatbot project I built to learn how the Mastra framework and Vercel AI SDK work together. The chatbot has a fitness coach persona and includes a basic BMI calculator tool.
 
-## Features
+## What I Learned
 
-- **Mastra Agent**: Uses the Mastra framework to define an AI agent with a custom system prompt and tools
-- **BMI Calculator Tool**: Precise BMI calculations using Zod-validated tool definitions
-- **Real-time Chat UI**: React frontend with the Vercel AI SDK's `useChat` hook
-- **AI SDK Data Stream Protocol**: Properly formatted responses for seamless frontend integration
+- How to define agents and tools with Mastra
+- How the Vercel AI SDK's `useChat` hook manages chat state
+- How to format responses for the AI SDK data stream protocol
 
 ## Tech Stack
 
-- **Frontend**: Next.js, React, Tailwind CSS
-- **Backend**: Mastra framework, OpenAI GPT-4o-mini
-- **State Management**: Vercel AI SDK (`@ai-sdk/react`)
-- **Validation**: Zod schemas for tool inputs/outputs
+- Next.js, React, Tailwind CSS
+- Mastra framework with OpenAI GPT-4o-mini
+- Zod for tool input/output validation
 
-## Architecture
-
-The app follows a clean separation of concerns:
-
-1. **Mastra Agent** handles LLM interactions and tool execution
-2. **Next.js API Route** bridges frontend requests to the agent
-3. **React Components** manage chat UI with the `useChat` hook
-
-For a detailed breakdown, check out the [blog post](/blog/09-building-ai-fitness-coach-chatbot).
+For more details, see my [learning notes](/blog/09-building-ai-fitness-coach-chatbot).
