@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content"
 import { formatDate, readingTime } from "@lib/utils"
 import ShareButtons from "@components/ShareButtons.astro"
+import GitHubRepoCard from "@components/GitHubRepoCard.astro"
 
 type Props = {
   entry: CollectionEntry<"projects"> | CollectionEntry<"blog">
@@ -75,42 +76,30 @@ const articleUrl = new URL(`/${collection}/${slug}`, Astro.site).toString()
     <ShareButtons title={title} url={articleUrl} />
   </div>
   {
-    (demoUrl || repoUrl) && (
-      <div class="mt-4 flex flex-wrap gap-2">
-        {demoUrl && (
-          <a
-            href={demoUrl}
-            target="_blank"
-            class="blend group flex items-center gap-2 truncate rounded border border-black/25 px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/25 hover:dark:bg-white/15 md:text-sm lg:text-base"
-          >
-            <svg class="size-4">
-              <use
-                href="/ui.svg#globe"
-                class="blend fill-current group-hover:fill-black group-hover:dark:fill-white"
-              />
-            </svg>
-            <span class="blend text-current group-hover:text-black group-hover:dark:text-white">
-              See Demo
-            </span>
-          </a>
-        )}
-        {repoUrl && (
-          <a
-            href={repoUrl}
-            target="_blank"
-            class="blend group flex items-center gap-2 truncate rounded border border-black/25 px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/25 hover:dark:bg-white/15 md:text-sm lg:text-base"
-          >
-            <svg class="size-4">
-              <use
-                href="/ui.svg#link"
-                class="blend fill-current group-hover:fill-black group-hover:dark:fill-white"
-              />
-            </svg>
-            <span class="blend text-current group-hover:text-black group-hover:dark:text-white">
-              See Repository
-            </span>
-          </a>
-        )}
+    demoUrl && (
+      <div class="mt-4">
+        <a
+          href={demoUrl}
+          target="_blank"
+          class="blend group inline-flex items-center gap-2 truncate rounded border border-black/25 px-3 py-1.5 text-xs hover:bg-black/5 dark:border-white/25 hover:dark:bg-white/15 md:text-sm lg:text-base"
+        >
+          <svg class="size-4">
+            <use
+              href="/ui.svg#globe"
+              class="blend fill-current group-hover:fill-black group-hover:dark:fill-white"
+            />
+          </svg>
+          <span class="blend text-current group-hover:text-black group-hover:dark:text-white">
+            See Demo
+          </span>
+        </a>
+      </div>
+    )
+  }
+  {
+    repoUrl && (
+      <div class="mt-4">
+        <GitHubRepoCard repoUrl={repoUrl} />
       </div>
     )
   }
