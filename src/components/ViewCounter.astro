@@ -49,17 +49,41 @@ const { slug, class: className } = Astro.props
 </div>
 
 <script>
+  const VIEWED_POSTS_KEY = "viewedPosts"
+
+  function getViewedPosts(): Set<string> {
+    try {
+      const stored = localStorage.getItem(VIEWED_POSTS_KEY)
+      return stored ? new Set(JSON.parse(stored)) : new Set()
+    } catch {
+      return new Set()
+    }
+  }
+
+  function markAsViewed(slug: string): void {
+    try {
+      const viewed = getViewedPosts()
+      viewed.add(slug)
+      localStorage.setItem(VIEWED_POSTS_KEY, JSON.stringify([...viewed]))
+    } catch {
+      // localStorage not available
+    }
+  }
+
   async function initViewCounters() {
     const counters = document.querySelectorAll(".view-counter")
+    const viewedPosts = getViewedPosts()
 
     for (const counter of counters) {
       const slug = counter.getAttribute("data-slug")
       if (!slug) continue
 
+      const alreadyViewed = viewedPosts.has(slug)
+
       try {
-        // Try to fetch and increment views
+        // POST to increment if not viewed, GET to just fetch count
         const response = await fetch(`/api/views/${slug}`, {
-          method: "POST",
+          method: alreadyViewed ? "GET" : "POST",
         })
 
         if (response.ok) {
@@ -67,6 +91,10 @@ const { slug, class: className } = Astro.props
           const countEl = counter.querySelector(".view-count")
           if (countEl && data.views !== undefined) {
             countEl.textContent = formatViews(data.views)
+          }
+          // Mark as viewed after successful increment
+          if (!alreadyViewed) {
+            markAsViewed(slug)
           }
         } else {
           // API not available, hide the counter
