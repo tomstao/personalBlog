@@ -1,5 +1,6 @@
 import { createSignal, lazy, onCleanup, onMount, Show, Suspense } from "solid-js"
 import type { SearchableEntry } from "@/types"
+import ErrorBoundary from "./ErrorBoundary"
 
 // Lazy load SearchModal only when needed
 const SearchModal = lazy(() => import("./SearchModalContent"))
@@ -28,10 +29,12 @@ export default function SearchWrapper({ data }: Props) {
   })
 
   return (
-    <Show when={shouldLoad()}>
-      <Suspense>
-        <SearchModal data={data} initialOpen={true} />
-      </Suspense>
-    </Show>
+    <ErrorBoundary>
+      <Show when={shouldLoad()}>
+        <Suspense>
+          <SearchModal data={data} initialOpen={true} />
+        </Suspense>
+      </Show>
+    </ErrorBoundary>
   )
 }

@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content"
 import PageLayout from "@layouts/PageLayout.astro"
 import ArrowCard from "@components/ArrowCard"
-import { SITE } from "@consts"
 
 // Get recent posts for suggestions
 const recentPosts = (await getCollection("blog"))
