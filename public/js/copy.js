@@ -1,36 +1,47 @@
-const codeBlocks = document.querySelectorAll("pre:has(code)")
+function initCopyButtons() {
+  const codeBlocks = document.querySelectorAll("pre:has(code)")
 
-//add copy btn to every code block on the dom
-codeBlocks.forEach((pre) => {
-  //button icon
-  const use = document.createElementNS("http://www.w3.org/2000/svg", "use")
-  use.setAttribute("href", "/copy.svg#empty")
-  const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
-  svg.classList.add("copy-svg")
-  svg.appendChild(use)
+  //add copy btn to every code block on the dom
+  codeBlocks.forEach((pre) => {
+    // Skip if already wrapped (prevents duplicates on re-navigation)
+    if (pre.parentElement?.classList.contains("code-block-wrapper")) {
+      return
+    }
 
-  //create tooltip
-  const tooltip = document.createElement("span")
-  tooltip.classList.add("copy-tooltip")
-  tooltip.textContent = "Copy"
+    //button icon
+    const use = document.createElementNS("http://www.w3.org/2000/svg", "use")
+    use.setAttribute("href", "/copy.svg#empty")
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
+    svg.classList.add("copy-svg")
+    svg.appendChild(use)
 
-  //create button
-  const btn = document.createElement("button")
-  btn.appendChild(svg)
-  btn.appendChild(tooltip)
-  btn.classList.add("copy-btn")
-  btn.setAttribute("aria-label", "Copy code to clipboard")
-  btn.addEventListener("click", (e) => copyCode(e))
+    //create tooltip
+    const tooltip = document.createElement("span")
+    tooltip.classList.add("copy-tooltip")
+    tooltip.textContent = "Copy"
 
-  //create wrapper to hold pre and button
-  const wrapper = document.createElement("div")
-  wrapper.classList.add("code-block-wrapper")
+    //create button
+    const btn = document.createElement("button")
+    btn.appendChild(svg)
+    btn.appendChild(tooltip)
+    btn.classList.add("copy-btn")
+    btn.setAttribute("aria-label", "Copy code to clipboard")
+    btn.addEventListener("click", (e) => copyCode(e))
 
-  //wrap the pre element
-  pre.parentNode.insertBefore(wrapper, pre)
-  wrapper.appendChild(pre)
-  wrapper.appendChild(btn)
-})
+    //create wrapper to hold pre and button
+    const wrapper = document.createElement("div")
+    wrapper.classList.add("code-block-wrapper")
+
+    //wrap the pre element
+    pre.parentNode.insertBefore(wrapper, pre)
+    wrapper.appendChild(pre)
+    wrapper.appendChild(btn)
+  })
+}
+
+// Initialize on page load and Astro view transitions
+document.addEventListener("DOMContentLoaded", initCopyButtons)
+document.addEventListener("astro:after-swap", initCopyButtons)
 
 /**
  * @param {MouseEvent} event
