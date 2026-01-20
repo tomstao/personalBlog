@@ -169,18 +169,43 @@ article img {
   @apply rotate-315;
 }
 
-.copy-cnt {
-  @apply absolute w-full;
-  top: var(--copy-btn-margin);
+.code-block-wrapper {
+  @apply relative;
 }
+
 .copy-btn {
-  @apply fixed w-[30px];
-  left: calc(100% - var(--copy-btn-margin));
-  transform: translateX(-100%);
+  @apply absolute flex items-center gap-1.5 rounded px-1.5 py-1;
+  @apply transition-all duration-200 ease-in-out;
+  @apply hover:bg-white/10;
+  bottom: var(--copy-btn-margin);
+  right: var(--copy-btn-margin);
+}
+
+.copy-btn.copied {
+  @apply bg-green-500/20;
 }
 
 .copy-svg {
-  @apply aspect-square w-full text-white opacity-70 hover:opacity-90;
+  @apply aspect-square w-[18px] text-white opacity-70;
+  @apply transition-opacity duration-200;
+}
+
+.copy-btn:hover .copy-svg {
+  @apply opacity-100;
+}
+
+.copy-tooltip {
+  @apply text-xs text-white/70 opacity-0;
+  @apply transition-opacity duration-200;
+}
+
+.copy-btn:hover .copy-tooltip,
+.copy-btn.copied .copy-tooltip {
+  @apply opacity-100;
+}
+
+.copy-btn.copied .copy-tooltip {
+  @apply text-green-400;
 }
 
 /**
@@ -196,4 +221,22 @@ article pre[data-language]::before {
   @apply px-2 py-1 text-xs uppercase;
   @apply bg-white/5 text-white/50;
   @apply rounded-bl font-mono;
+}
+
+/**
+ * Skip to content link animation
+ */
+.skip-to-content:focus {
+  animation: skipLinkFadeIn 0.2s ease-out;
+}
+
+@keyframes skipLinkFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
