@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content"
 import { formatDate, readingTime } from "@lib/utils"
 import ShareButtons from "@components/ShareButtons.astro"
 import GitHubRepoCard from "@components/GitHubRepoCard.astro"
+import ViewCounter from "@components/ViewCounter.astro"
 
 type Props = {
   entry: CollectionEntry<"projects"> | CollectionEntry<"blog">
@@ -65,6 +66,7 @@ const articleUrl = new URL(`/${collection}/${slug}`, Astro.site).toString()
       </svg>
       {readingTime(body)}
     </div>
+    <ViewCounter slug={slug} class="uppercase" />
   </div>
   <h1 class="mt-2 text-3xl font-semibold text-black dark:text-white">
     {title}
