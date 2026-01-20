@@ -13,7 +13,7 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
 
 {
   toc.length > 0 && (
-    <nav class="toc sticky top-20 z-10 mb-8 rounded-lg border border-black/10 bg-white/95 p-4 backdrop-blur-sm dark:border-white/20 dark:bg-black/95">
+    <nav class="toc sticky top-20 z-10 mb-8 rounded-lg border border-black/10 bg-white/95 p-4 backdrop-blur-sm dark:border-white/20 dark:bg-black/95 md:static md:bg-black/5 dark:md:bg-white/5">
       <button
         id="toc-toggle"
         class="flex w-full items-center justify-between text-sm font-semibold uppercase text-black dark:text-white md:cursor-default"
