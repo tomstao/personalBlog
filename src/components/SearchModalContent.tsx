@@ -1,4 +1,13 @@
-import { createEffect, createMemo, createSignal, For, onCleanup, onMount, Show } from "solid-js"
+import {
+  createEffect,
+  createMemo,
+  createSignal,
+  For,
+  mergeProps,
+  onCleanup,
+  onMount,
+  Show,
+} from "solid-js"
 import type { JSX } from "solid-js"
 import Fuse, { type FuseResult, type FuseResultMatch } from "fuse.js"
 import type { SearchableEntry } from "@/types"
@@ -46,13 +55,14 @@ function highlightMatches(
   return <>{parts}</>
 }
 
-export default function SearchModal({ data, initialOpen = false }: Props) {
-  const [isOpen, setIsOpen] = createSignal(initialOpen)
+export default function SearchModal(_props: Props) {
+  const props = mergeProps({ initialOpen: false }, _props)
+  const [isOpen, setIsOpen] = createSignal(props.initialOpen)
   const [query, setQuery] = createSignal("")
   const [selectedIndex, setSelectedIndex] = createSignal(0)
   let inputRef: HTMLInputElement | undefined
 
-  const fuse = new Fuse(data, {
+  const fuse = new Fuse(props.data, {
     keys: ["slug", "data.title", "data.summary", "data.tags"],
     includeMatches: true,
     minMatchCharLength: 2,

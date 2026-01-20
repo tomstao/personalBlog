@@ -6,6 +6,6 @@ type Props = {
   data: CollectionEntry<"projects">[]
 }
 
-export default function Projects({ data, tags }: Props) {
-  return <FilterableList data={data} tags={tags} collection="projects" />
+export default function Projects(props: Props) {
+  return <FilterableList data={props.data} tags={props.tags} collection="projects" />
 }

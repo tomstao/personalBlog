@@ -25,6 +25,9 @@ jobs:
       - name: Run ESLint
         run: bun run lint
 
+      - name: Run tests
+        run: bun test
+
       - name: Run Prettier check
         run: bun run format:check
 

@@ -9,7 +9,7 @@ type Props = {
   data: SearchableEntry[]
 }
 
-export default function SearchWrapper({ data }: Props) {
+export default function SearchWrapper(props: Props) {
   const [shouldLoad, setShouldLoad] = createSignal(false)
 
   const handleOpenSearch = () => {
@@ -32,7 +32,7 @@ export default function SearchWrapper({ data }: Props) {
     <ErrorBoundary>
       <Show when={shouldLoad()}>
         <Suspense>
-          <SearchModal data={data} initialOpen={true} />
+          <SearchModal data={props.data} initialOpen={true} />
         </Suspense>
       </Show>
     </ErrorBoundary>

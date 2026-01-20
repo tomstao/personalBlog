@@ -70,6 +70,6 @@ export default [
     },
   },
   {
-    ignores: ["dist/", "node_modules/", ".astro/", "public/js/"],
+    ignores: ["dist/", "node_modules/", ".astro/", ".vercel/", "public/js/"],
   },
 ]

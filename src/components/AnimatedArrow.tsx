@@ -1,23 +1,26 @@
+import { mergeProps } from "solid-js"
+
 type Props = {
   direction?: "left" | "right"
   size?: number
   class?: string
 }
 
-export default function AnimatedArrow({ direction = "right", size = 20, class: className }: Props) {
-  const isLeft = direction === "left"
+export default function AnimatedArrow(_props: Props) {
+  const props = mergeProps({ direction: "right", size: 20 }, _props)
+  const isLeft = props.direction === "left"
 
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
+      width={props.size}
+      height={props.size}
       viewBox="0 0 24 24"
       fill="none"
       stroke-width="2.5"
       stroke-linecap="round"
       stroke-linejoin="round"
-      class={`stroke-current group-hover:stroke-black group-hover:dark:stroke-white ${isLeft ? "rotate-180" : ""} ${className || ""}`}
+      class={`stroke-current group-hover:stroke-black group-hover:dark:stroke-white ${isLeft ? "rotate-180" : ""} ${props.class || ""}`}
     >
       <line
         x1="5"

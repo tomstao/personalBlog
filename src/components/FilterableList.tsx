@@ -1,5 +1,5 @@
 import type { CollectionEntry } from "astro:content"
-import { createEffect, createMemo, createSignal, For, Show } from "solid-js"
+import { createEffect, createMemo, createSignal, For, mergeProps, Show } from "solid-js"
 import ArrowCard from "@components/ArrowCard"
 import ErrorBoundary from "@components/ErrorBoundary"
 import { cn } from "@lib/utils"
@@ -15,20 +15,16 @@ type Props<T extends FilterableCollection> = {
 
 const ITEMS_PER_PAGE = 6
 
-export default function FilterableList<T extends FilterableCollection>({
-  data,
-  tags,
-  collection,
-  itemsPerPage = ITEMS_PER_PAGE,
-}: Props<T>) {
+export default function FilterableList<T extends FilterableCollection>(_props: Props<T>) {
+  const props = mergeProps({ itemsPerPage: ITEMS_PER_PAGE }, _props)
   const [filter, setFilter] = createSignal(new Set<string>())
   const [items, setItems] = createSignal<CollectionEntry<T>[]>([])
   const [currentPage, setCurrentPage] = createSignal(1)
 
-  const label = collection === "blog" ? "POSTS" : "PROJECTS"
+  const label = props.collection === "blog" ? "POSTS" : "PROJECTS"
 
   createEffect(() => {
-    const filtered = data.filter((entry) =>
+    const filtered = props.data.filter((entry) =>
       Array.from(filter()).every((value) =>
         entry.data.tags.some((tag: string) => tag.toLowerCase() === String(value).toLowerCase())
       )
@@ -37,11 +33,11 @@ export default function FilterableList<T extends FilterableCollection>({
     setCurrentPage(1) // Reset to first page when filter changes
   })
 
-  const totalPages = createMemo(() => Math.ceil(items().length / itemsPerPage))
+  const totalPages = createMemo(() => Math.ceil(items().length / props.itemsPerPage))
 
   const paginatedItems = createMemo(() => {
-    const start = (currentPage() - 1) * itemsPerPage
-    return items().slice(start, start + itemsPerPage)
+    const start = (currentPage() - 1) * props.itemsPerPage
+    return items().slice(start, start + props.itemsPerPage)
   })
 
   const canGoPrev = createMemo(() => currentPage() > 1)
@@ -62,7 +58,7 @@ export default function FilterableList<T extends FilterableCollection>({
               Filter
             </div>
             <ul class="flex flex-wrap gap-1.5 sm:flex-col">
-              <For each={tags}>
+              <For each={props.tags}>
                 {(tag) => (
                   <li>
                     <button
@@ -105,7 +101,7 @@ export default function FilterableList<T extends FilterableCollection>({
           <div class="flex flex-col">
             <div class="mb-2 text-sm uppercase">
               SHOWING {paginatedItems().length} OF {items().length} {label}
-              {filter().size > 0 && ` (${data.length} total)`}
+              {filter().size > 0 && ` (${props.data.length} total)`}
             </div>
 
             <Show
