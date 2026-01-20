@@ -13,11 +13,27 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
 
 {
   toc.length > 0 && (
-    <nav class="toc mb-8 rounded-lg border border-black/10 bg-black/5 p-4 dark:border-white/20 dark:bg-white/5">
-      <div class="mb-3 text-sm font-semibold uppercase text-black dark:text-white">
-        Table of Contents
-      </div>
-      <ul class="flex flex-col gap-2">
+    <nav class="toc sticky top-20 z-10 mb-8 rounded-lg border border-black/10 bg-white/95 p-4 backdrop-blur-sm dark:border-white/20 dark:bg-black/95">
+      <button
+        id="toc-toggle"
+        class="flex w-full items-center justify-between text-sm font-semibold uppercase text-black dark:text-white md:cursor-default"
+        aria-expanded="false"
+        aria-controls="toc-content"
+      >
+        <span>Table of Contents</span>
+        <svg
+          id="toc-chevron"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-4 w-4 transition-transform duration-200 md:hidden"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      <ul id="toc-content" class="mt-3 hidden flex-col gap-2 md:flex">
         {toc.map((heading) => (
           <li
             class:list={[
@@ -29,7 +45,7 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
           >
             <a
               href={`#${heading.slug}`}
-              class="hover:text-black hover:underline dark:hover:text-white"
+              class="toc-link hover:text-black hover:underline dark:hover:text-white"
             >
               {heading.text}
             </a>
@@ -39,3 +55,43 @@ const toc = headings.filter((h) => h.depth >= 2 && h.depth <= 3)
     </nav>
   )
 }
+
+<script>
+  function initToc() {
+    const toggle = document.getElementById("toc-toggle")
+    const content = document.getElementById("toc-content")
+    const chevron = document.getElementById("toc-chevron")
+
+    if (!toggle || !content || !chevron) return
+
+    toggle.addEventListener("click", () => {
+      // Only toggle on mobile (md breakpoint is 768px)
+      if (window.innerWidth >= 768) return
+
+      const isExpanded = toggle.getAttribute("aria-expanded") === "true"
+      toggle.setAttribute("aria-expanded", String(!isExpanded))
+      content.classList.toggle("hidden")
+      content.classList.toggle("flex")
+      chevron.classList.toggle("rotate-180")
+    })
+
+    // Close TOC when clicking a link on mobile
+    const tocLinks = content.querySelectorAll(".toc-link")
+    tocLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (window.innerWidth < 768) {
+          toggle.setAttribute("aria-expanded", "false")
+          content.classList.add("hidden")
+          content.classList.remove("flex")
+          chevron.classList.remove("rotate-180")
+        }
+      })
+    })
+  }
+
+  // Run on initial load
+  initToc()
+
+  // Re-run after Astro page transitions
+  document.addEventListener("astro:after-swap", initToc)
+</script>
