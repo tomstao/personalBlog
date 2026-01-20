@@ -179,6 +179,10 @@ article img {
   @apply relative;
 }
 
+.code-block-wrapper pre {
+  @apply pb-10; /* Space for copy button */
+}
+
 .copy-btn {
   @apply absolute flex items-center gap-1.5 rounded px-1.5 py-1;
   @apply transition-all duration-200 ease-in-out;
