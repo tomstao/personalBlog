@@ -3,6 +3,7 @@ import { type CollectionEntry, getCollection } from "astro:content"
 import type { MarkdownHeading } from "astro"
 import TableOfContents from "@components/TableOfContents.astro"
 import RelatedPosts from "@components/RelatedPosts.astro"
+import SeriesNavigation from "@components/SeriesNavigation.astro"
 import AnimatedArrow from "@components/AnimatedArrow.astro"
 
 type Props = {
@@ -26,6 +27,7 @@ const next = items[(index + 1) % items.length]
 
 <div>
   <TableOfContents headings={headings} />
+  {collection === "blog" && <SeriesNavigation entry={entry as CollectionEntry<"blog">} />}
   <article>
     <Content />
   </article>

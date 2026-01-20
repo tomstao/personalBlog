@@ -1,0 +1,97 @@
+---
+/**
+ * View Counter Component
+ *
+ * This component displays the view count for a post.
+ * Uses Vercel KV (Redis via Upstash) through the API endpoint.
+ *
+ * Setup:
+ * 1. Create KV database in Vercel Dashboard → Storage
+ * 2. Connect to your project (auto-configures env vars)
+ * 3. Install: bun add @vercel/kv
+ *
+ * The component will gracefully hide if the API is not available.
+ */
+
+interface Props {
+  slug: string
+  class?: string
+}
+
+const { slug, class: className } = Astro.props
+---
+
+<div
+  class:list={[
+    "view-counter inline-flex items-center gap-1.5 text-sm text-black/50 dark:text-white/50",
+    className,
+  ]}
+  data-slug={slug}
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    class="h-4 w-4"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+    stroke-width="2"
+  >
+    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+    ></path>
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+    ></path>
+  </svg>
+  <span class="view-count">--</span>
+  <span>views</span>
+</div>
+
+<script>
+  async function initViewCounters() {
+    const counters = document.querySelectorAll(".view-counter")
+
+    for (const counter of counters) {
+      const slug = counter.getAttribute("data-slug")
+      if (!slug) continue
+
+      try {
+        // Try to fetch and increment views
+        const response = await fetch(`/api/views/${slug}`, {
+          method: "POST",
+        })
+
+        if (response.ok) {
+          const data = await response.json()
+          const countEl = counter.querySelector(".view-count")
+          if (countEl && data.views !== undefined) {
+            countEl.textContent = formatViews(data.views)
+          }
+        } else {
+          // API not available, hide the counter
+          ;(counter as HTMLElement).style.display = "none"
+        }
+      } catch {
+        // API not available, hide the counter
+        ;(counter as HTMLElement).style.display = "none"
+      }
+    }
+  }
+
+  function formatViews(views: number): string {
+    if (views >= 1000000) {
+      return (views / 1000000).toFixed(1) + "M"
+    }
+    if (views >= 1000) {
+      return (views / 1000).toFixed(1) + "K"
+    }
+    return views.toString()
+  }
+
+  // Run on initial load
+  initViewCounters()
+
+  // Re-run after Astro page transitions
+  document.addEventListener("astro:after-swap", initViewCounters)
+</script>

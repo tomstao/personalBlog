@@ -3,10 +3,12 @@ import mdx from "@astrojs/mdx"
 import sitemap from "@astrojs/sitemap"
 import tailwind from "@astrojs/tailwind"
 import solidJs from "@astrojs/solid-js"
+import vercel from "@astrojs/vercel"
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://astro-sphere-demo.vercel.app",
+  adapter: vercel(), // Use Vercel adapter for serverless functions
   integrations: [mdx(), sitemap(), solidJs(), tailwind({ applyBaseStyles: false })],
   prefetch: {
     prefetchAll: true,

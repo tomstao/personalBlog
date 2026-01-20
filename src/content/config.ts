@@ -18,6 +18,13 @@ const blog = defineCollection({
     date: z.coerce.date(),
     tags: z.array(z.string()),
     draft: z.boolean().optional(),
+    // Series support for multi-part tutorials
+    series: z
+      .object({
+        name: z.string(),
+        part: z.number(),
+      })
+      .optional(),
   }),
 })
 
