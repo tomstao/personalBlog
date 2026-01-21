@@ -50,10 +50,16 @@ const stack = [
   </div>
 
   <!-- Dark Theme: Stars -->
-  <div class="absolute inset-0 hidden bg-black dark:block">
-    <div id="stars1" class="fixed inset-0"></div>
-    <div id="stars2" class="fixed inset-0"></div>
-    <div id="stars3" class="fixed inset-0"></div>
+  <div class="absolute inset-0 hidden overflow-hidden bg-black dark:block">
+    <div id="stars-container1" class="fixed left-0 top-0 h-screen w-[200vw]">
+      <div id="stars1" class="absolute inset-0 h-full w-full"></div>
+    </div>
+    <div id="stars-container2" class="fixed left-0 top-0 h-screen w-[200vw]">
+      <div id="stars2" class="absolute inset-0 h-full w-full"></div>
+    </div>
+    <div id="stars-container3" class="fixed left-0 top-0 h-screen w-[200vw]">
+      <div id="stars3" class="absolute inset-0 h-full w-full"></div>
+    </div>
   </div>
 
   <!-- Dark Theme: Twinkling Stars / Metors -->
@@ -92,7 +98,7 @@ const stack = [
             Hello, I am ...
           </p>
           <p
-            class="animated text-2xl font-bold uppercase text-black dark:text-white md:text-3xl lg:text-4xl"
+            class="animated animate-gradient bg-gradient-to-r from-orange-500 via-amber-400 to-emerald-500 bg-[length:200%_auto] bg-clip-text text-2xl font-bold uppercase text-transparent dark:from-orange-400 dark:via-yellow-300 dark:to-emerald-400 md:text-3xl lg:text-4xl"
           >
             Tao Su
           </p>
@@ -102,13 +108,13 @@ const stack = [
           <div id="ctaButtons" class="animated mt-5 flex flex-wrap justify-center gap-4">
             <a
               href="/blog"
-              class="blend truncate rounded bg-black px-4 py-2 text-xs text-white hover:opacity-75 dark:bg-white dark:text-black md:text-sm lg:text-base"
+              class="blend truncate rounded bg-black px-4 py-2 text-xs text-white transition-all duration-300 hover:scale-105 hover:opacity-75 hover:shadow-[0_0_25px_rgba(0,0,0,0.3)] dark:bg-white dark:text-black dark:hover:shadow-[0_0_25px_rgba(255,255,255,0.3)] md:text-sm lg:text-base"
             >
               Read my blog
             </a>
             <a
               href="/work"
-              class="blend truncate rounded border border-black/25 px-4 py-2 text-xs hover:bg-black/5 dark:border-white/25 hover:dark:bg-white/15 md:text-sm lg:text-base"
+              class="blend truncate rounded border border-black/25 px-4 py-2 text-xs transition-all duration-300 hover:scale-105 hover:bg-black/5 hover:shadow-[0_0_20px_rgba(0,0,0,0.2)] dark:border-white/25 hover:dark:bg-white/15 dark:hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] md:text-sm lg:text-base"
             >
               View my work
             </a>

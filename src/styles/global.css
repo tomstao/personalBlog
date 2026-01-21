@@ -94,6 +94,16 @@ article {
   }
 }
 
+/** Dark mode stars drift animation - loops seamlessly */
+@keyframes starDrift {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 /** styles for public /animation.js */
 .animate {
   opacity: 0;
@@ -141,6 +151,7 @@ article img {
 
 #twinkle-star.twinkle {
   @apply animate-twinkle; /* defined in tailwind.config */
+  filter: drop-shadow(0 0 8px white) drop-shadow(0 0 12px rgba(255, 255, 255, 0.7));
 }
 
 /**
@@ -157,6 +168,7 @@ article img {
   @apply animate-meteor; /* defined in tailwind.config */
   @apply absolute left-1/2 top-1/2 h-[75vh] w-px;
   @apply bg-gradient-to-b from-white to-transparent;
+  filter: drop-shadow(0 0 6px currentColor);
 }
 
 #meteors .shower.ur {

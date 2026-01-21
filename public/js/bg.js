@@ -7,9 +7,12 @@ function generateParticles(n) {
 }
 
 function generateStars(n) {
-  let value = `${getRandom(2560)}px ${getRandom(2560)}px #fff`
+  // Generate stars across 200vw width for seamless looping
+  const width = window.innerWidth * 2
+  const height = window.innerHeight
+  let value = `${getRandom(width)}px ${getRandom(height)}px #fff`
   for (let i = 2; i <= n; i++) {
-    value += `, ${getRandom(2560)}px ${getRandom(2560)}px #fff`
+    value += `, ${getRandom(width)}px ${getRandom(height)}px #fff`
   }
   return value
 }
@@ -62,6 +65,9 @@ function initBG() {
   const stars1 = document.getElementById("stars1")
   const stars2 = document.getElementById("stars2")
   const stars3 = document.getElementById("stars3")
+  const starsContainer1 = document.getElementById("stars-container1")
+  const starsContainer2 = document.getElementById("stars-container2")
+  const starsContainer3 = document.getElementById("stars-container3")
 
   if (stars1) {
     stars1.style.cssText = `
@@ -88,6 +94,19 @@ function initBG() {
       border-radius: 50%;
       box-shadow: ${starsLarge};
       `
+  }
+
+  // Apply animation to containers
+  if (starsContainer1) {
+    starsContainer1.style.animation = "starDrift 200s linear infinite"
+  }
+
+  if (starsContainer2) {
+    starsContainer2.style.animation = "starDrift 150s linear infinite"
+  }
+
+  if (starsContainer3) {
+    starsContainer3.style.animation = "starDrift 100s linear infinite"
   }
 }
 

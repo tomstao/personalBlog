@@ -25,6 +25,10 @@ export default {
       animation: {
         twinkle: "twinkle 2s ease-in-out forwards",
         meteor: "meteor 3s ease-in-out forwards",
+        gradient: "gradient 8s ease infinite",
+        pulse: "pulse 3s ease-in-out infinite",
+        glow: "glow 2s ease-in-out infinite",
+        "star-drift": "starDrift 120s linear infinite",
       },
       keyframes: {
         twinkle: {
@@ -52,6 +56,38 @@ export default {
           "100%": {
             opacity: 0,
             transform: "translateY(0)",
+          },
+        },
+        gradient: {
+          "0%, 100%": {
+            backgroundPosition: "0% 50%",
+          },
+          "50%": {
+            backgroundPosition: "100% 50%",
+          },
+        },
+        pulse: {
+          "0%, 100%": {
+            opacity: 1,
+          },
+          "50%": {
+            opacity: 0.8,
+          },
+        },
+        glow: {
+          "0%, 100%": {
+            boxShadow: "0 0 20px rgba(255, 255, 255, 0.3)",
+          },
+          "50%": {
+            boxShadow: "0 0 30px rgba(255, 255, 255, 0.6), 0 0 40px rgba(255, 255, 255, 0.4)",
+          },
+        },
+        starDrift: {
+          "0%": {
+            transform: "translateX(0)",
+          },
+          "100%": {
+            transform: "translateX(-100vw)",
           },
         },
       },

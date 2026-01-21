@@ -23,6 +23,21 @@
     meteor.style.left = Math.round(Math.random() * window.innerWidth) + "px"
     meteor.style.top = Math.round(Math.random() * window.innerHeight) + "px"
 
+    // Add random color variations
+    const colors = [
+      "rgba(255, 255, 255, 1)", // white
+      "rgba(239, 68, 68, 1)", // red
+      "rgba(249, 115, 22, 1)", // orange
+      "rgba(251, 191, 36, 1)", // amber/yellow
+      "rgba(34, 197, 94, 1)", // green
+      "rgba(16, 185, 129, 1)", // emerald
+      "rgba(59, 130, 246, 1)", // blue (keeping one)
+      "rgba(168, 85, 247, 1)", // purple (keeping one)
+    ]
+    const randomColor = colors[Math.floor(Math.random() * colors.length)]
+    meteor.style.background = `linear-gradient(to bottom, ${randomColor}, transparent)`
+    meteor.style.color = randomColor
+
     // append the meteor to a random meteor shower (direction)
     const showers = document.querySelectorAll(".shower")
     if (showers.length > 0) {
