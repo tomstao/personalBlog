@@ -104,6 +104,18 @@ article {
   }
 }
 
+#stars-container1 {
+  animation: starDrift 200s linear infinite;
+}
+
+#stars-container2 {
+  animation: starDrift 150s linear infinite;
+}
+
+#stars-container3 {
+  animation: starDrift 100s linear infinite;
+}
+
 /** styles for public /animation.js */
 .animate {
   opacity: 0;
