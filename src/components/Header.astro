@@ -11,14 +11,16 @@ const subpath = pathname.match(/[^/]+/g)
 <header id="header" class="fixed top-0 z-50 h-16 w-full">
   <Container size="md">
     <div class="relative h-full w-full">
-      <div class="absolute left-0 top-1/2 flex -translate-y-1/2 gap-1 font-semibold">
+      <div class="absolute left-0 top-1/2 flex -translate-y-1/2 gap-2 font-semibold">
         <a
           href="/"
-          class="flex gap-1 rounded-sm text-current outline-none transition-colors duration-300 ease-in-out hover:text-black focus-visible:ring-2 focus-visible:ring-black/50 dark:hover:text-white dark:focus-visible:ring-white/50"
+          class="flex items-center gap-2 rounded-sm text-current outline-none transition-colors duration-300 ease-in-out hover:text-black focus-visible:ring-2 focus-visible:ring-black/50 dark:hover:text-white dark:focus-visible:ring-white/50"
         >
-          <svg class="size-6 fill-current">
-            <use href="/brand.svg#brand"></use>
-          </svg>
+          <img
+            src="https://github.com/tomstao.png"
+            alt="Tao Su's avatar"
+            class="size-8 rounded-full border-2 border-black/10 dark:border-white/25"
+          />
           <div>
             {SITE.TITLE}
           </div>
