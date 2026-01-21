@@ -31,14 +31,14 @@ This is where I share my projects, lessons learned, and thoughts on tech and lea
 
 All commands are run from the root of the project:
 
-| Command           | Action                                     |
-| :---------------- | :----------------------------------------- |
-| `bun install`     | Install dependencies                       |
-| `bun run dev`     | Start local dev server at `localhost:4321` |
-| `bun run build`   | Build production site to `./dist/`         |
-| `bun run preview` | Preview build locally before deploying     |
-| `bun run format`  | Format code with Prettier                  |
-| `bun run lint`    | Run ESLint                                 |
+| Command          | Action                                     |
+| :--------------- | :----------------------------------------- |
+| `bun install`    | Install dependencies                       |
+| `bun run dev`    | Start local dev server at `localhost:4321` |
+| `bun run build`  | Build production site to `./dist/`         |
+| `vercel dev`     | Preview build locally with Vercel CLI      |
+| `bun run format` | Format code with Prettier                  |
+| `bun run lint`   | Run ESLint                                 |
 
 ## Connect
 
