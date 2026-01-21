@@ -25,7 +25,7 @@ export default {
       animation: {
         twinkle: "twinkle 2s ease-in-out forwards",
         meteor: "meteor 3s ease-in-out forwards",
-        gradient: "gradient 8s ease infinite",
+        gradient: "gradient 5s linear infinite",
         pulse: "pulse 3s ease-in-out infinite",
         glow: "glow 2s ease-in-out infinite",
         "star-drift": "starDrift 120s linear infinite",
@@ -59,10 +59,10 @@ export default {
           },
         },
         gradient: {
-          "0%, 100%": {
+          "0%": {
             backgroundPosition: "0% 50%",
           },
-          "50%": {
+          "100%": {
             backgroundPosition: "100% 50%",
           },
         },
